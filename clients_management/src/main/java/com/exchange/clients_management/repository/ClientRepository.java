@@ -3,7 +3,6 @@ package com.exchange.clients_management.repository;
 import com.exchange.clients_management.domain.Client;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
 import java.util.Optional;
 
 @Repository
