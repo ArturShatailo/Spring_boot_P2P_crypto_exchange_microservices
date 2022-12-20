@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:postgresql://localhost:5432/p2p_clients_management</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="p2p_verification@localhost" uuid="96007083-bc56-4d8c-811c-be1f4077ef92">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/p2p_verification</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

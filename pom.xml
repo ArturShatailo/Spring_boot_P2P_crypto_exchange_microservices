@@ -8,6 +8,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>clients_management</module>
+        <module>verification</module>
     </modules>
     <version>1.0-SNAPSHOT</version>
 
