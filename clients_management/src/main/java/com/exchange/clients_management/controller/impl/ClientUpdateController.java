@@ -1,14 +1,9 @@
 package com.exchange.clients_management.controller.impl;
 
 import com.exchange.clients_management.controller.ClientBlock;
-import com.exchange.clients_management.controller.ClientCheck;
-import com.exchange.clients_management.controller.ClientRegistration;
 import com.exchange.clients_management.controller.ClientVerify;
 import com.exchange.clients_management.domain.Client;
-import com.exchange.clients_management.domain.dto.ClientRegisterDTO;
-import com.exchange.clients_management.service.ClientRegisterService;
 import com.exchange.clients_management.service.ClientUpdateStatusService;
-import com.exchange.clients_management.util.mapper.ClientMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
