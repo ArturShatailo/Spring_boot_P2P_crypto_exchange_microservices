@@ -7,12 +7,12 @@ import org.springframework.web.multipart.MultipartFile;
 public interface DownloadDocument {
 
     @PostMapping(value = "/id")
-    String uploadID(@RequestParam("file") MultipartFile file,  @RequestParam("email") String email);
+    void uploadID(@RequestParam("file") MultipartFile file,  @RequestParam("email") String email);
 
     @PostMapping(value = "/address")
-    String uploadAddress(@RequestParam("file") MultipartFile file, @RequestParam("email") String email);
+    void uploadAddress(@RequestParam("file") MultipartFile file, @RequestParam("email") String email);
 
     @PostMapping(value = "/other")
-    String uploadOther(@RequestParam("file") MultipartFile file, @RequestParam("email") String email);
+    void uploadOther(@RequestParam("file") MultipartFile file, @RequestParam("email") String email);
 
 }

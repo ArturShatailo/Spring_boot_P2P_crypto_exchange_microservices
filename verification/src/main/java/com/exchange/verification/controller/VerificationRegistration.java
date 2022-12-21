@@ -5,8 +5,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 public interface VerificationRegistration {
 
-    @PostMapping(value = "/")
+    @PostMapping(value = "/new")
     void newVerification(@RequestParam("email") String email);
-
 
 }

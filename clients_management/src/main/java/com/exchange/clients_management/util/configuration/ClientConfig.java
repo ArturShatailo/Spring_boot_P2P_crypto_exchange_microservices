@@ -19,7 +19,7 @@ public class ClientConfig {
 
     @Bean
     public String verificationCreate(){
-        String createController = "/?email={email}";
+        String createController = "/new?email={email}";
         return verificationAddress() + createController;
     }
 

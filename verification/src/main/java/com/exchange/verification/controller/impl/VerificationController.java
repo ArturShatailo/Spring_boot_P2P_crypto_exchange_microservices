@@ -21,7 +21,7 @@ public class VerificationController implements DownloadDocument, VerificationReg
     private final VerificationRegistrationService verificationRegistrationService;
 
     @Override
-    @PostMapping(value = "/")
+    @PostMapping(value = "/new")
     @ResponseStatus(HttpStatus.CREATED)
     public void newVerification(@RequestParam("email") String email) {
         verificationRegistrationService.newVerification(email);
@@ -30,21 +30,21 @@ public class VerificationController implements DownloadDocument, VerificationReg
     @Override
     @PostMapping(value = "/id")
     @ResponseStatus(HttpStatus.CREATED)
-    public String uploadID(@RequestParam("file") MultipartFile file,  @RequestParam("email") String email) {
-        return documentService.uploadID(file, email);
+    public void uploadID(@RequestParam("file") MultipartFile file,  @RequestParam("email") String email) {
+        documentService.uploadID(file, email);
     }
 
     @Override
     @PostMapping(value = "/address")
     @ResponseStatus(HttpStatus.CREATED)
-    public String uploadAddress(@RequestParam("file") MultipartFile file, @RequestParam("email") String email) {
-        return documentService.uploadAddress(file, email);
+    public void uploadAddress(@RequestParam("file") MultipartFile file, @RequestParam("email") String email) {
+        documentService.uploadAddress(file, email);
     }
 
     @Override
     @PostMapping(value = "/other")
     @ResponseStatus(HttpStatus.CREATED)
-    public String uploadOther(@RequestParam("file") MultipartFile file, @RequestParam("email") String email) {
-        return documentService.uploadOther(file, email);
+    public void uploadOther(@RequestParam("file") MultipartFile file, @RequestParam("email") String email) {
+        documentService.uploadOther(file, email);
     }
 }

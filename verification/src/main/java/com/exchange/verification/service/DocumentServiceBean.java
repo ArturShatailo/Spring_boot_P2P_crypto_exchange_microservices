@@ -3,6 +3,8 @@ package com.exchange.verification.service;
 import com.exchange.verification.domain.Document;
 import com.exchange.verification.repository.DocumentRepository;
 import com.exchange.verification.util.exceptions.DocumentNotFoundException;
+import com.exchange.verification.util.exceptions.FileWasNotUploadedException;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,29 +24,27 @@ public class DocumentServiceBean implements DocumentService{
 
     private final VerificationService verificationService;
 
-
+    @Transactional
     @Override
-    public String uploadID(MultipartFile file, String email) {
-        String filePath = saveFile(file);
-        Document document = documentRepository.saveAndFlush(new Document(email, "processing", filePath));
-        verificationService.updateAddressDoc(email, document);
-        return filePath;
+    public void uploadID(MultipartFile file, String email) {
+        verificationService.updateIdDoc(email, createNewDocument(file, email));
     }
 
+    @Transactional
     @Override
-    public String uploadAddress(MultipartFile file, String email) {
-        String filePath = saveFile(file);
-        Document document = documentRepository.saveAndFlush(new Document(email, "processing", filePath));
-        verificationService.updateOtherDoc(email, document);
-        return filePath;
+    public void uploadAddress(MultipartFile file, String email) {
+        verificationService.updateAddressDoc(email, createNewDocument(file, email));
     }
 
+    @Transactional
     @Override
-    public String uploadOther(MultipartFile file, String email) {
+    public void uploadOther(MultipartFile file, String email) {
+        verificationService.updateOtherDoc(email, createNewDocument(file, email));
+    }
+
+    private Document createNewDocument(MultipartFile file, String email) {
         String filePath = saveFile(file);
-        Document document = documentRepository.saveAndFlush(new Document(email, "processing", filePath));
-        verificationService.updateIdDoc(email, document);
-        return filePath;
+        return documentRepository.saveAndFlush(new Document(email, "processing", filePath));
     }
 
     private String saveFile(MultipartFile file) {
@@ -53,14 +53,8 @@ public class DocumentServiceBean implements DocumentService{
             Files.write(fileNameAndPath, file.getBytes());
             return fileNameAndPath.toString();
         } catch (IOException ioException) {
-            System.err.println("File wasn't uploaded");
-            return null;
+            throw new FileWasNotUploadedException("File wasn't uploaded");
         }
-    }
-
-    @Override
-    public Document create(Document document) {
-        return documentRepository.save(document);
     }
 
     @Override
