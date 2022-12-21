@@ -38,4 +38,11 @@ public class ClientUpdateController implements ClientBlock, ClientVerify {
     public Client verify(String email) {
         return clientUpdateStatusService.verify(email);
     }
+
+    @Override
+    @PutMapping(value = "/unverify", params = {"email"})
+    @ResponseStatus(HttpStatus.OK)
+    public Client unverify(String email) {
+        return clientUpdateStatusService.unverify(email);
+    }
 }

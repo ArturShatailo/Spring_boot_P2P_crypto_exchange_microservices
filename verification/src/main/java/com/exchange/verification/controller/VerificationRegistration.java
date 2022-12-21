@@ -7,5 +7,4 @@ public interface VerificationRegistration {
 
     @PostMapping(value = "/new")
     void newVerification(@RequestParam("email") String email);
-
 }

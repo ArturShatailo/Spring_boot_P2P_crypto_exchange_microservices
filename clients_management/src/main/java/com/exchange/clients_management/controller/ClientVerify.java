@@ -9,4 +9,7 @@ public interface ClientVerify {
     @PutMapping(value = "/verify", params = {"email"})
     Client verify (@RequestParam String email);
 
+    @PutMapping(value = "/unverify", params = {"email"})
+    Client unverify (@RequestParam String email);
+
 }

@@ -1,11 +1,10 @@
 package com.exchange.verification.service;
 
-import com.exchange.verification.domain.Document;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface DocumentService {
 
-    void update (Long id, Document document);
+    String updateStatus (Long id, String status);
 
     void uploadID(MultipartFile file, String email);
 

@@ -1,7 +1,10 @@
-package com.exchange.verification.service;
+package com.exchange.verification.service.impl;
 
 import com.exchange.verification.domain.Document;
+import com.exchange.verification.domain.Verification;
 import com.exchange.verification.repository.VerificationRepository;
+import com.exchange.verification.service.VerificationService;
+import com.exchange.verification.service.VerificationStatusProcessingService;
 import com.exchange.verification.util.exceptions.VerificationNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -9,9 +12,23 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class VerificationServiceBean implements VerificationService{
+public class VerificationServiceBean implements VerificationService {
 
     private final VerificationRepository verificationRepository;
+
+    private final VerificationStatusProcessingService verificationStatusProcessingService;
+
+    @Transactional
+    @Override
+    public String updateStatus(Long id) {
+        return verificationRepository.findById(id)
+                .map(ver -> {
+                    Verification verification = verificationStatusProcessingService.setStatus(ver);
+                    return verificationRepository.saveAndFlush(verification);
+                })
+                .orElseThrow(() -> new VerificationNotFoundException("Can't find verification with id: " + id))
+                .getStatus();
+    }
 
     @Transactional
     @Override
@@ -33,7 +50,6 @@ public class VerificationServiceBean implements VerificationService{
                     return verificationRepository.save(verification);
                 })
                 .orElseThrow(() -> new VerificationNotFoundException("Can't find verification request from user: " + email));
-
     }
 
     @Transactional

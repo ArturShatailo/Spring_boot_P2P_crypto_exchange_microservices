@@ -1,14 +1,15 @@
-package com.exchange.verification.service;
+package com.exchange.verification.service.impl;
 
 import com.exchange.verification.domain.Verification;
 import com.exchange.verification.repository.VerificationRepository;
+import com.exchange.verification.service.ValidationService;
 import com.exchange.verification.util.exceptions.VerificationExistsException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class ValidationServiceBean implements ValidationService{
+public class ValidationServiceBean implements ValidationService {
 
     private final VerificationRepository verificationRepository;
 

@@ -1,7 +1,9 @@
-package com.exchange.verification.service;
+package com.exchange.verification.service.impl;
 
 import com.exchange.verification.domain.Document;
 import com.exchange.verification.repository.DocumentRepository;
+import com.exchange.verification.service.DocumentService;
+import com.exchange.verification.service.VerificationService;
 import com.exchange.verification.util.exceptions.DocumentNotFoundException;
 import com.exchange.verification.util.exceptions.FileWasNotUploadedException;
 import jakarta.transaction.Transactional;
@@ -16,7 +18,7 @@ import java.nio.file.Paths;
 
 @Service
 @AllArgsConstructor
-public class DocumentServiceBean implements DocumentService{
+public class DocumentServiceBean implements DocumentService {
 
     private static final String UPLOAD_DIRECTORY = System.getProperty("user.dir") + "/uploads";
 
@@ -57,14 +59,15 @@ public class DocumentServiceBean implements DocumentService{
         }
     }
 
+    @Transactional
     @Override
-    public void update(Long id, Document document) {
-        documentRepository.findById(id)
+    public String updateStatus(Long id, String status) {
+        return documentRepository.findById(id)
                 .map(doc -> {
-                    doc.setScan_doc(doc.getScan_doc());
-                    doc.setStatus(doc.getStatus());
-                    return documentRepository.save(doc);
+                    doc.setStatus(status);
+                    return documentRepository.saveAndFlush(doc);
                 })
-                .orElseThrow(() -> new DocumentNotFoundException("Can't find document with id: "+id));
+                .orElseThrow(() -> new DocumentNotFoundException("Can't find document with id: "+id))
+                .getStatus();
     }
 }
