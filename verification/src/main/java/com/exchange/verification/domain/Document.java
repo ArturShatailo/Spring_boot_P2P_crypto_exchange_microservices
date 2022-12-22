@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @Entity
 @Table(name = "documents")
@@ -22,10 +24,18 @@ public class Document {
 
     private String scan_doc;
 
-    public Document(String email, String status, String scan_doc){
+    private String type;
+
+    private Date date = new Date();
+
+    public Document(String email, String status, String type){
         this.email = email;
-        this.scan_doc = scan_doc;
+        this.type = type;
         this.status = status;
+    }
+
+    public String nameConstructor(){
+        return email + "_" + type + "_" + date.getTime();
     }
 
 }

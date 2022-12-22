@@ -9,12 +9,14 @@
         <outputRelativeToContentRoot value="true" />
         <module name="clients_management" />
         <module name="verification" />
+        <module name="payment_system" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="clients_management" options="-parameters" />
+      <module name="payment_system" options="-parameters" />
       <module name="verification" options="-parameters" />
     </option>
   </component>
