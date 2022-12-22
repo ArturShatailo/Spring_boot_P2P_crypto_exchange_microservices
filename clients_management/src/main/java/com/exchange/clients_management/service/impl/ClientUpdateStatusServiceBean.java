@@ -42,4 +42,14 @@ public class ClientUpdateStatusServiceBean implements ClientUpdateStatusService 
                 })
                 .orElseThrow(() -> new ClientNotFoundException("Can't find Client with email: " + email));
     }
+
+    @Override
+    public Client unverify(String email) {
+        return clientRepository.findClientByEmail(email)
+                .map(client -> {
+                    client.setIs_verified(false);
+                    return clientRepository.save(client);
+                })
+                .orElseThrow(() -> new ClientNotFoundException("Can't find Client with email: " + email));
+    }
 }

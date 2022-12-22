@@ -10,4 +10,6 @@ public interface ClientUpdateStatusService {
 
     Client verify(String email);
 
+    Client unverify(String email);
+
 }
