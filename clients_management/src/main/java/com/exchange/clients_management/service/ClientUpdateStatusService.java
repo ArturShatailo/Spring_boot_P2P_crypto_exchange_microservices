@@ -4,9 +4,9 @@ import com.exchange.clients_management.domain.Client;
 
 public interface ClientUpdateStatusService {
 
-    Client block(String email);
+    Client block(Long id);
 
-    Client unblock(String email);
+    Client unblock(Long id);
 
     Client verify(String email);
 

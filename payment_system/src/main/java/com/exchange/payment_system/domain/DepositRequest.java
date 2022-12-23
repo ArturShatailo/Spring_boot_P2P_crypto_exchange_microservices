@@ -20,9 +20,8 @@ public class DepositRequest {
 
     private Double amount;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private Currency currency;
+    private String account_wallet_number;
 
-    private String status;
+    private String status = "NEW";
 
 }

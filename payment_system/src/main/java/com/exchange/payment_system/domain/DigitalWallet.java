@@ -16,7 +16,7 @@ public class DigitalWallet {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String identification_number;
+    private String number;
 
     private String email;
 

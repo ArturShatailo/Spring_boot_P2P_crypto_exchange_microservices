@@ -19,30 +19,30 @@ public class ClientUpdateController implements ClientBlock, ClientVerify {
     private final ClientUpdateStatusService clientUpdateStatusService;
 
     @Override
-    @PutMapping(value = "/block", params = {"email"})
+    @PutMapping(value = "/block", params = {"id"})
     @ResponseStatus(HttpStatus.CREATED)
-    public Client block(String email) {
-        return clientUpdateStatusService.block(email);
+    public Client block(@RequestParam Long id) {
+        return clientUpdateStatusService.block(id);
     }
 
     @Override
-    @PutMapping(value = "/unblock", params = {"email"})
+    @PutMapping(value = "/unblock", params = {"id"})
     @ResponseStatus(HttpStatus.CREATED)
-    public Client unblock(String email) {
-        return clientUpdateStatusService.unblock(email);
+    public Client unblock(@RequestParam Long id) {
+        return clientUpdateStatusService.unblock(id);
     }
 
     @Override
     @PutMapping(value = "/verify", params = {"email"})
     @ResponseStatus(HttpStatus.OK)
-    public Client verify(String email) {
+    public Client verify(@RequestParam String email) {
         return clientUpdateStatusService.verify(email);
     }
 
     @Override
     @PutMapping(value = "/unverify", params = {"email"})
     @ResponseStatus(HttpStatus.OK)
-    public Client unverify(String email) {
+    public Client unverify(@RequestParam String email) {
         return clientUpdateStatusService.unverify(email);
     }
 }

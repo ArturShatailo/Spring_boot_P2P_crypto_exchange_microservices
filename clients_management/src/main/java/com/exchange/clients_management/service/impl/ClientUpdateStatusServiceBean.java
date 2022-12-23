@@ -14,23 +14,23 @@ public class ClientUpdateStatusServiceBean implements ClientUpdateStatusService 
     private final ClientRepository clientRepository;
 
     @Override
-    public Client block(String email) {
-        return clientRepository.findClientByEmail(email)
+    public Client block(Long id) {
+        return clientRepository.findById(id)
                 .map(client -> {
                     client.setIs_blocked(true);
                     return clientRepository.save(client);
                 })
-                .orElseThrow(() -> new ClientNotFoundException("Can't find Client with email: " + email));
+                .orElseThrow(() -> new ClientNotFoundException("Can't find Client with id: " + id));
     }
 
     @Override
-    public Client unblock(String email) {
-        return clientRepository.findClientByEmail(email)
+    public Client unblock(Long id) {
+        return clientRepository.findById(id)
                 .map(client -> {
                     client.setIs_blocked(false);
                     return clientRepository.save(client);
                 })
-                .orElseThrow(() -> new ClientNotFoundException("Can't find Client with email: " + email));
+                .orElseThrow(() -> new ClientNotFoundException("Can't find Client with id: " + id));
     }
 
     @Override
