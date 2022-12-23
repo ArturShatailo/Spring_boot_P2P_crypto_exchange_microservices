@@ -22,14 +22,15 @@ public class DepositRequestProcessingServiceBean implements DepositRequestProces
         return depositRequestRepository.save(depositRequest);
     }
 
+    //TODO: Optimize status filter
     @Transactional
     @Override
     public void accept(Long id) {
-        depositRequestRepository.findById(id)
+        depositRequestRepository.findDepositRequestByIdAndStatus(id, "NEW")
                 .map(deposit -> {
                     deposit.setStatus("DONE");
                     accountWalletProcessingService.depositConfirmed(
-                            deposit.getAccount_wallet_number(),
+                            deposit.getWallet(),
                             deposit.getAmount(),
                             deposit.getEmail()
                     );
@@ -38,9 +39,10 @@ public class DepositRequestProcessingServiceBean implements DepositRequestProces
                 .orElseThrow(() -> new DepositRequestNotFoundException("Can't find Deposit request with id: " + id));
     }
 
+    //TODO: Optimize status filter
     @Override
     public void decline(Long id) {
-        depositRequestRepository.findById(id)
+        depositRequestRepository.findDepositRequestByIdAndStatus(id, "NEW")
                 .map(depositRequest -> {
                     depositRequest.setStatus("FAIL");
                     return depositRequestRepository.save(depositRequest);

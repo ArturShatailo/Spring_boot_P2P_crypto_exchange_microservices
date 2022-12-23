@@ -27,6 +27,16 @@ public class AccountWalletProcessingServiceBean implements AccountWalletProcessi
                 .orElseThrow(() -> new AccountWalletNotFoundException("Can't find account wallet with email: " + email + " and number: " + accountWallet));
     }
 
+    @Override
+    public void withdrawalConfirmed(String accountWallet, Double amount, String email) {
+        accountWalletRepository.findAccountWalletByEmailAndNumber(email, accountWallet)
+                .map(aw -> {
+                    aw.decreaseBalance(amount);
+                    return accountWalletRepository.save(aw);
+                })
+                .orElseThrow(() -> new AccountWalletNotFoundException("Can't find account wallet with email: " + email + " and number: " + accountWallet));
+    }
+
     @Transactional
     @Override
     public AccountWallet addAccountWallet(String email, Long currency_id) {

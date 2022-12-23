@@ -6,5 +6,7 @@ public interface AccountWalletProcessingService {
 
     void depositConfirmed(String accountWallet, Double amount, String email);
 
+    void withdrawalConfirmed(String accountWallet, Double amount, String email);
+
     AccountWallet addAccountWallet(String email, Long currency_id);
 }

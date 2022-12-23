@@ -31,4 +31,9 @@ public class AccountWallet {
         balance += amount;
     }
 
+    public void decreaseBalance(Double amount) {
+        balance -= amount;
+    }
+
+
 }

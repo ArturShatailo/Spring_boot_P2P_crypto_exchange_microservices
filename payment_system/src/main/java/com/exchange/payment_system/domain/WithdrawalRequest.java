@@ -5,14 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
-
 @Data
 @Entity
-@Table(name = "internal_transactions")
+@Table(name = "withdrawal_requests")
 @AllArgsConstructor
 @NoArgsConstructor
-public class InternalTransaction {
+public class WithdrawalRequest {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,17 +18,10 @@ public class InternalTransaction {
 
     private String email;
 
-    private String from_id;
-
-    private String to_id;
-
     private Double amount;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private Currency currency;
+    private String wallet;
 
-    private Date timestamp = new Date();
-
-    private String status;
+    private String status = "NEW";
 
 }

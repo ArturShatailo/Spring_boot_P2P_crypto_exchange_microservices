@@ -27,7 +27,8 @@ public class P2PTransaction {
 
     private Double amount;
 
-    private String currency;
+    @OneToOne(cascade = CascadeType.ALL)
+    private Currency currency;
 
     private Date timestamp = new Date();
 

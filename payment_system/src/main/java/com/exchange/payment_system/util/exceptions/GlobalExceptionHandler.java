@@ -41,6 +41,28 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(NotEnoughFundsOnBalanceException.class)
+    protected ResponseEntity<?> handleNotEnoughFundsOnBalanceException(NotEnoughFundsOnBalanceException ex, WebRequest request) {
+        ExceptionDetails errorDetails =
+                new ExceptionDetails(new Date(), ex.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(ClientIsNotVerifiedException.class)
+    protected ResponseEntity<?> handleClientIsNotVerifiedException(ClientIsNotVerifiedException ex, WebRequest request) {
+        ExceptionDetails errorDetails =
+                new ExceptionDetails(new Date(), ex.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
+    }
+
+
+    @ExceptionHandler(WithdrawalRequestNotFoundException.class)
+    protected ResponseEntity<?> handleWithdrawalRequestNotFoundException(WithdrawalRequestNotFoundException ex, WebRequest request) {
+        ExceptionDetails errorDetails =
+                new ExceptionDetails(new Date(), ex.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
+    }
+
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<MyGlobalExceptionHandler> globalExceptionHandler(Exception ex) {

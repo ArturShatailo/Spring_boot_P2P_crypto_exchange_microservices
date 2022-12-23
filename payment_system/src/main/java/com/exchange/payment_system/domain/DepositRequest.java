@@ -20,7 +20,7 @@ public class DepositRequest {
 
     private Double amount;
 
-    private String account_wallet_number;
+    private String wallet;
 
     private String status = "NEW";
 
