@@ -1,10 +1,11 @@
 package com.exchange.payment_system.service.impl;
 
-import com.exchange.payment_system.domain.WithdrawalRequest;
+import com.exchange.payment_system.domain.AccountWallet;
+import com.exchange.payment_system.domain.transactions.WithdrawalRequest;
 import com.exchange.payment_system.repository.WithdrawalRequestRepository;
-import com.exchange.payment_system.service.AccountWalletProcessingService;
-import com.exchange.payment_system.service.WithdrawalRequestProcessingService;
-import com.exchange.payment_system.service.validation.WithdrawalRequestValidationService;
+import com.exchange.payment_system.service.TransactionProcessingService;
+import com.exchange.payment_system.service.WalletProcessingService;
+import com.exchange.payment_system.service.validation.TransactionValidationService;
 import com.exchange.payment_system.util.exceptions.WithdrawalRequestNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -12,18 +13,18 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class WithdrawalRequestProcessingServiceBean implements WithdrawalRequestProcessingService {
+public class WithdrawalRequestProcessingServiceBean implements TransactionProcessingService<WithdrawalRequest> {
 
     private final WithdrawalRequestRepository withdrawalRequestRepository;
 
-    private final AccountWalletProcessingService accountWalletProcessingService;
+    private final WalletProcessingService<AccountWallet> walletProcessingService;
 
-    private final WithdrawalRequestValidationService withdrawalRequestValidationService;
+    private final TransactionValidationService<WithdrawalRequest> transactionValidationService;
 
     @Transactional
     @Override
     public WithdrawalRequest create(WithdrawalRequest withdrawalRequest) {
-        withdrawalRequestValidationService.validate(withdrawalRequest);
+        transactionValidationService.validate(withdrawalRequest);
         return withdrawalRequestRepository.save(withdrawalRequest);
     }
 
@@ -33,9 +34,9 @@ public class WithdrawalRequestProcessingServiceBean implements WithdrawalRequest
     public void accept(Long id) {
         withdrawalRequestRepository.findWithdrawalRequestByIdAndStatus(id, "NEW")
                 .map(withdrawal -> {
-                    withdrawalRequestValidationService.validate(withdrawal);
+                    transactionValidationService.validate(withdrawal);
                     withdrawal.setStatus("DONE");
-                    accountWalletProcessingService.withdrawalConfirmed(
+                    walletProcessingService.withdrawalConfirmed(
                             withdrawal.getWallet(),
                             withdrawal.getAmount(),
                             withdrawal.getEmail()
@@ -46,6 +47,7 @@ public class WithdrawalRequestProcessingServiceBean implements WithdrawalRequest
     }
 
     //TODO: Optimize status filter
+    @Transactional
     @Override
     public void decline(Long id) {
         withdrawalRequestRepository.findWithdrawalRequestByIdAndStatus(id, "NEW")
@@ -55,5 +57,4 @@ public class WithdrawalRequestProcessingServiceBean implements WithdrawalRequest
                 })
                 .orElseThrow(() -> new WithdrawalRequestNotFoundException("Can't find Withdrawal request with id: " + id));
     }
-
 }

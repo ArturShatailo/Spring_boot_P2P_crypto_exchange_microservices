@@ -1,7 +1,7 @@
 package com.exchange.payment_system.service.validation;
 
 import com.exchange.payment_system.domain.AccountWallet;
-import com.exchange.payment_system.domain.WithdrawalRequest;
+import com.exchange.payment_system.domain.transactions.WithdrawalRequest;
 import com.exchange.payment_system.repository.AccountWalletRepository;
 import com.exchange.payment_system.util.configuration.PaymentSystemConfig;
 import com.exchange.payment_system.util.exceptions.AccountWalletNotFoundException;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class WithdrawalRequestValidationServiceBean implements WithdrawalRequestValidationService{
+public class WithdrawalRequestValidationServiceBean implements TransactionValidationService<WithdrawalRequest>{
 
     private final PaymentSystemConfig paymentSystemConfig;
 

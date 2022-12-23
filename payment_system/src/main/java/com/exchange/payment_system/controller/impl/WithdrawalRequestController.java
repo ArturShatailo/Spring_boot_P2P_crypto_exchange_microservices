@@ -1,9 +1,9 @@
 package com.exchange.payment_system.controller.impl;
 
 import com.exchange.payment_system.controller.WithdrawalRequestProcessing;
-import com.exchange.payment_system.domain.WithdrawalRequest;
+import com.exchange.payment_system.domain.transactions.WithdrawalRequest;
 import com.exchange.payment_system.domain.dto.WithdrawalRequestDTO;
-import com.exchange.payment_system.service.WithdrawalRequestProcessingService;
+import com.exchange.payment_system.service.TransactionProcessingService;
 import com.exchange.payment_system.util.mapper.WithdrawalRequestMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 public class WithdrawalRequestController implements WithdrawalRequestProcessing {
 
-    private final WithdrawalRequestProcessingService withdrawalRequestProcessingService;
+    private final TransactionProcessingService<WithdrawalRequest> withdrawalRequestProcessingService;
 
     private final WithdrawalRequestMapper withdrawalRequestMapper;
 

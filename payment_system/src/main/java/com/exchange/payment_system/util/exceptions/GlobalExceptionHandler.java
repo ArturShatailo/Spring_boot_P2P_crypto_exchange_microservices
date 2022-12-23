@@ -55,6 +55,19 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(InternalDepositRequestNotFoundException.class)
+    protected ResponseEntity<?> handleInternalDepositRequestNotFoundException(InternalDepositRequestNotFoundException ex, WebRequest request) {
+        ExceptionDetails errorDetails =
+                new ExceptionDetails(new Date(), ex.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(InternalWithdrawalRequestNotFoundException.class)
+    protected ResponseEntity<?> handleInternalWithdrawalRequestNotFoundException(InternalWithdrawalRequestNotFoundException ex, WebRequest request) {
+        ExceptionDetails errorDetails =
+                new ExceptionDetails(new Date(), ex.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
+    }
 
     @ExceptionHandler(WithdrawalRequestNotFoundException.class)
     protected ResponseEntity<?> handleWithdrawalRequestNotFoundException(WithdrawalRequestNotFoundException ex, WebRequest request) {

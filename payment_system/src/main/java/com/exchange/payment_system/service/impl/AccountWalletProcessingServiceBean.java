@@ -2,8 +2,8 @@ package com.exchange.payment_system.service.impl;
 
 import com.exchange.payment_system.domain.AccountWallet;
 import com.exchange.payment_system.repository.AccountWalletRepository;
-import com.exchange.payment_system.service.AccountWalletProcessingService;
 import com.exchange.payment_system.service.CurrencyService;
+import com.exchange.payment_system.service.WalletProcessingService;
 import com.exchange.payment_system.util.exceptions.AccountWalletNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class AccountWalletProcessingServiceBean implements AccountWalletProcessingService {
+public class AccountWalletProcessingServiceBean implements WalletProcessingService<AccountWallet> {
 
     private final AccountWalletRepository accountWalletRepository;
 
@@ -39,7 +39,7 @@ public class AccountWalletProcessingServiceBean implements AccountWalletProcessi
 
     @Transactional
     @Override
-    public AccountWallet addAccountWallet(String email, Long currency_id) {
+    public AccountWallet addWallet(String email, Long currency_id) {
         return  accountWalletRepository.save(
                 AccountWallet.builder()
                         .email(email)

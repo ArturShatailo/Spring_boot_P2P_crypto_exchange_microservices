@@ -1,7 +1,7 @@
 package com.exchange.payment_system.controller.impl;
 
 import com.exchange.payment_system.domain.AccountWallet;
-import com.exchange.payment_system.service.AccountWalletProcessingService;
+import com.exchange.payment_system.service.WalletProcessingService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -14,14 +14,13 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 public class AccountWalletController {
 
-    //???????
-    private final AccountWalletProcessingService accountWalletProcessingService;
+    private final WalletProcessingService<AccountWallet> walletProcessingService;
 
     @PostMapping(value = "/", params = {"email", "currency_id"})
     @ResponseStatus(HttpStatus.CREATED)
     public AccountWallet addAccountWallet(@RequestParam String email, @RequestParam Long currency_id) {
-        return accountWalletProcessingService
-                .addAccountWallet(email, currency_id);
+        return walletProcessingService
+                .addWallet(email, currency_id);
     }
 
 }

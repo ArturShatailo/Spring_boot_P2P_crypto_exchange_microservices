@@ -1,6 +1,6 @@
 package com.exchange.payment_system.controller;
 
-import com.exchange.payment_system.domain.WithdrawalRequest;
+import com.exchange.payment_system.domain.transactions.WithdrawalRequest;
 import com.exchange.payment_system.domain.dto.WithdrawalRequestDTO;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;

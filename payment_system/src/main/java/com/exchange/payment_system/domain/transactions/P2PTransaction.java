@@ -1,5 +1,6 @@
-package com.exchange.payment_system.domain;
+package com.exchange.payment_system.domain.transactions;
 
+import com.exchange.payment_system.domain.Currency;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,10 +10,11 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "internal_transactions")
+@Table(name = "p2p_transactions")
 @AllArgsConstructor
 @NoArgsConstructor
-public class InternalTransaction {
+
+public class P2PTransaction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

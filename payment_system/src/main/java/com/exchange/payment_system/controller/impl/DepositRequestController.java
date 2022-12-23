@@ -1,9 +1,9 @@
 package com.exchange.payment_system.controller.impl;
 
 import com.exchange.payment_system.controller.DepositRequestProcessing;
-import com.exchange.payment_system.domain.DepositRequest;
+import com.exchange.payment_system.domain.transactions.DepositRequest;
 import com.exchange.payment_system.domain.dto.DepositRequestDTO;
-import com.exchange.payment_system.service.DepositRequestProcessingService;
+import com.exchange.payment_system.service.TransactionProcessingService;
 import com.exchange.payment_system.util.mapper.DepositRequestMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 public class DepositRequestController implements DepositRequestProcessing {
 
-    private final DepositRequestProcessingService depositRequestProcessingService;
+    private final TransactionProcessingService<DepositRequest> depositRequestProcessingService;
 
     private final DepositRequestMapper depositRequestMapper;
 

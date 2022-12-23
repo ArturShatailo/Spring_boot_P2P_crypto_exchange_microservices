@@ -13,7 +13,6 @@ public class CurrencyServiceBean implements CurrencyService {
 
     private final CurrencyRepository currencyRepository;
 
-
     @Override
     public Currency getById(Long id) {
         return currencyRepository.findById(id)

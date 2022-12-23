@@ -1,4 +1,4 @@
-package com.exchange.payment_system.domain;
+package com.exchange.payment_system.domain.transactions;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

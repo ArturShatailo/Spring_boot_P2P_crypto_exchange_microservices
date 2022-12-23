@@ -1,6 +1,6 @@
 package com.exchange.payment_system.controller;
 
-import com.exchange.payment_system.domain.DepositRequest;
+import com.exchange.payment_system.domain.transactions.DepositRequest;
 import com.exchange.payment_system.domain.dto.DepositRequestDTO;
 import org.springframework.web.bind.annotation.*;
 

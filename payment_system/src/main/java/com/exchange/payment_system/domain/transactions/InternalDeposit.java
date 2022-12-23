@@ -1,19 +1,20 @@
-package com.exchange.payment_system.domain;
+package com.exchange.payment_system.domain.transactions;
 
+import com.exchange.payment_system.domain.AccountWallet;
+import com.exchange.payment_system.domain.Currency;
+import com.exchange.payment_system.domain.DigitalWallet;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "p2p_transactions")
+@Table(name = "internal_deposits")
 @AllArgsConstructor
 @NoArgsConstructor
-
-public class P2PTransaction {
+public class InternalDeposit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,9 +22,11 @@ public class P2PTransaction {
 
     private String email;
 
-    private String from_id;
+    @ManyToOne(cascade = CascadeType.ALL)
+    private AccountWallet from;
 
-    private String to_id;
+    @ManyToOne(cascade = CascadeType.ALL)
+    private DigitalWallet to;
 
     private Double amount;
 

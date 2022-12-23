@@ -1,6 +1,6 @@
 package com.exchange.payment_system.util.mapper;
 
-import com.exchange.payment_system.domain.WithdrawalRequest;
+import com.exchange.payment_system.domain.transactions.WithdrawalRequest;
 import com.exchange.payment_system.domain.dto.WithdrawalRequestDTO;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
