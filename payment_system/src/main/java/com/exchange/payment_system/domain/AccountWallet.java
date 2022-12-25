@@ -24,7 +24,7 @@ public class AccountWallet {
 
     private Double balance;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     private Currency currency;
 
     public void increaseBalance(Double amount) {

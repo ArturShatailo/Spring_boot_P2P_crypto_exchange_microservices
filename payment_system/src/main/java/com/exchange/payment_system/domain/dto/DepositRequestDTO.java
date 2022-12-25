@@ -15,4 +15,6 @@ public class DepositRequestDTO {
 
     public String wallet;
 
+    public Long currency_id;
+
 }

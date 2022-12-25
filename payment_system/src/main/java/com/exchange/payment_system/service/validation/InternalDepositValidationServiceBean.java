@@ -1,9 +1,13 @@
 package com.exchange.payment_system.service.validation;
 
+import com.exchange.payment_system.domain.AccountWallet;
+import com.exchange.payment_system.domain.Currency;
+import com.exchange.payment_system.domain.DigitalWallet;
 import com.exchange.payment_system.domain.transactions.InternalDeposit;
-import com.exchange.payment_system.util.configuration.PaymentSystemConfig;
-import com.exchange.payment_system.util.exceptions.ClientIsNotVerifiedException;
-import com.exchange.payment_system.util.exceptions.NotEnoughFundsOnBalanceException;
+import com.exchange.payment_system.repository.AccountWalletRepository;
+import com.exchange.payment_system.repository.DigitalWalletRepository;
+import com.exchange.payment_system.util.exceptions.*;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,24 +15,43 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class InternalDepositValidationServiceBean implements TransactionValidationService<InternalDeposit>{
 
-    private final PaymentSystemConfig paymentSystemConfig;
+    private final AccountWalletRepository accountWalletRepository;
 
+    private final DigitalWalletRepository digitalWalletRepository;
+
+    @Transactional
     @Override
     public void validate(InternalDeposit transaction) {
-        validateAmount(transaction);
-        validateVerification(transaction.getEmail());
-    }
-
-    private void validateVerification(String email) {
-        String uri = paymentSystemConfig.isVerifiedClient();
-        boolean verification = Boolean.TRUE.equals(
-                paymentSystemConfig.restTemplate().getForObject(uri, boolean.class, email)
+        DigitalWallet destination = validateDestination(
+                transaction.getEmail(),
+                transaction.getTo_digital_wallet()
         );
-        if (!verification) throw new ClientIsNotVerifiedException("Client with email: " + email + "is not verified");
+        AccountWallet source = validateSource(
+                transaction.getEmail(),
+                transaction.getFrom_account_wallet()
+        );
+
+        validateCurrencies(destination.getCurrency(), source.getCurrency());
+        validateAmount(source, transaction.getAmount());
     }
 
-    private void validateAmount(InternalDeposit t) {
-        if (t.getFrom().getBalance().compareTo(t.getAmount()) < 0)
-            throw new NotEnoughFundsOnBalanceException("Balance of the wallet: " + t.getFrom().getNumber() + "is not enough");
+    private void validateCurrencies(Currency c, Currency c1) {
+        if (!c.equals(c1))
+            throw new CurrenciesAreNotEqualsException("Currency: " + c.getName() + " cannot be transferred into currency: " + c1.getName());
+    }
+
+    private AccountWallet validateSource(String email, String number) {
+        return accountWalletRepository.findAccountWalletByEmailAndNumber(email, number)
+                .orElseThrow(() -> new AccountWalletNotFoundException("Can't find account wallet with email: " + email + " and number: " + number));
+    }
+
+    private DigitalWallet validateDestination(String email, String number) {
+        return digitalWalletRepository.findDigitalWalletByEmailAndNumber(email, number)
+                .orElseThrow(() -> new DigitalWalletNotFoundException("Can't find digital wallet with email: " + email + " and number: " + number));
+    }
+
+    private void validateAmount(AccountWallet source, Double amount) {
+        if (source.getBalance().compareTo(amount) < 0)
+            throw new NotEnoughFundsOnBalanceException("Balance of the wallet: " + source.getNumber() + "is not enough");
     }
 }

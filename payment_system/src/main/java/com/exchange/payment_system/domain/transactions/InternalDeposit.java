@@ -1,8 +1,5 @@
 package com.exchange.payment_system.domain.transactions;
 
-import com.exchange.payment_system.domain.AccountWallet;
-import com.exchange.payment_system.domain.Currency;
-import com.exchange.payment_system.domain.DigitalWallet;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,19 +19,22 @@ public class InternalDeposit {
 
     private String email;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    private AccountWallet from;
+//    @ManyToOne(cascade = CascadeType.ALL)
+//    private AccountWallet from;
+//
+//    @ManyToOne(cascade = CascadeType.ALL)
+//    private DigitalWallet to;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    private DigitalWallet to;
+    private String from_account_wallet;
+
+    private String to_digital_wallet;
 
     private Double amount;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private Currency currency;
-
     private Date timestamp = new Date();
 
-    private String status;
+    private String status = "NEW";
+
+    private Long currency_id;
 
 }

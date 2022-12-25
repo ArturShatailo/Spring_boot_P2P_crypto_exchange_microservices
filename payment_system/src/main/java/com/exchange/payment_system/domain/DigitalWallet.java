@@ -25,7 +25,7 @@ public class DigitalWallet {
 
     private Double balance;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     private Currency currency;
 
     private Double balance_held;

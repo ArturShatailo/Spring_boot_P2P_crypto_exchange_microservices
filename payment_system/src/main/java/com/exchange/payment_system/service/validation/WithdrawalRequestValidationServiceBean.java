@@ -19,9 +19,18 @@ public class WithdrawalRequestValidationServiceBean implements TransactionValida
     private final AccountWalletRepository accountWalletRepository;
 
     @Override
-    public void validate(WithdrawalRequest withdrawalRequest) {
-        validateAmount(withdrawalRequest);
-        validateVerification(withdrawalRequest.getEmail());
+    public void validate(WithdrawalRequest transaction) {
+        validateVerification(transaction.getEmail());
+        AccountWallet source = validateSource(
+                transaction.getEmail(),
+                transaction.getWallet()
+        );
+        validateAmount(source, transaction.getAmount());
+    }
+
+    private AccountWallet validateSource(String email, String number) {
+        return accountWalletRepository.findAccountWalletByEmailAndNumber(email, number)
+                .orElseThrow(() -> new AccountWalletNotFoundException("Can't find account wallet with number: " + number));
     }
 
     private void validateVerification(String email) {
@@ -32,10 +41,8 @@ public class WithdrawalRequestValidationServiceBean implements TransactionValida
         if (!verification) throw new ClientIsNotVerifiedException("Client with email: " + email + "is not verified");
     }
 
-    private void validateAmount(WithdrawalRequest w) {
-        AccountWallet wallet = accountWalletRepository.findAccountWalletByEmailAndNumber(w.getEmail(), w.getWallet())
-                .orElseThrow(() -> new AccountWalletNotFoundException("Can't find account wallet with number: " + w.getWallet()));
-        if (wallet.getBalance().compareTo(w.getAmount()) < 0)
-            throw new NotEnoughFundsOnBalanceException("Balance of the wallet: " + w.getWallet() + "is not enough");
+    private void validateAmount(AccountWallet wallet, Double amount) {
+        if (wallet.getBalance().compareTo(amount) < 0)
+            throw new NotEnoughFundsOnBalanceException("Balance of the wallet: " + wallet.getNumber() + " is not enough");
     }
 }

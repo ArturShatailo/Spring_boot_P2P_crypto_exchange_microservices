@@ -4,6 +4,7 @@ import com.exchange.payment_system.domain.AccountWallet;
 import com.exchange.payment_system.repository.AccountWalletRepository;
 import com.exchange.payment_system.service.CurrencyService;
 import com.exchange.payment_system.service.WalletProcessingService;
+import com.exchange.payment_system.util.exceptions.AccountWalletExistsException;
 import com.exchange.payment_system.util.exceptions.AccountWalletNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -40,6 +41,11 @@ public class AccountWalletProcessingServiceBean implements WalletProcessingServi
     @Transactional
     @Override
     public AccountWallet addWallet(String email, Long currency_id) {
+
+        accountWalletRepository.findAccountWalletByEmailAndCurrencyId(email, currency_id)
+                .ifPresent(accountWallet -> {
+                    throw new AccountWalletExistsException(accountWallet.getCurrency().getName() + " account wallet with email: " + email + " exists");
+                });
         return  accountWalletRepository.save(
                 AccountWallet.builder()
                         .email(email)

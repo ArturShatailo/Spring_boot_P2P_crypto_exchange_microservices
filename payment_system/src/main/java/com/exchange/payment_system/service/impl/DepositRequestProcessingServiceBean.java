@@ -5,6 +5,7 @@ import com.exchange.payment_system.domain.transactions.DepositRequest;
 import com.exchange.payment_system.repository.DepositRequestRepository;
 import com.exchange.payment_system.service.TransactionProcessingService;
 import com.exchange.payment_system.service.WalletProcessingService;
+import com.exchange.payment_system.service.validation.TransactionValidationService;
 import com.exchange.payment_system.util.exceptions.DepositRequestNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -16,10 +17,14 @@ public class DepositRequestProcessingServiceBean implements TransactionProcessin
 
     private final DepositRequestRepository depositRequestRepository;
 
+    private final TransactionValidationService<DepositRequest> transactionValidationService;
+
     private final WalletProcessingService<AccountWallet> walletProcessingService;
 
+    @Transactional
     @Override
     public DepositRequest create(DepositRequest depositRequest) {
+        transactionValidationService.validate(depositRequest);
         return depositRequestRepository.save(depositRequest);
     }
 

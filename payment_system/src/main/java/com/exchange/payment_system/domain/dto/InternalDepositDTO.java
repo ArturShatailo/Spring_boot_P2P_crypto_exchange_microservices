@@ -7,13 +7,15 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class WithdrawalRequestDTO {
+public class InternalDepositDTO {
 
     public String email;
 
     public Double amount;
 
-    public String wallet;
+    public String from_account_wallet;
+
+    public String to_digital_wallet;
 
     private Long currency_id;
 

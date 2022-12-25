@@ -1,5 +1,6 @@
 package com.exchange.payment_system.service.impl;
 
+import com.exchange.payment_system.domain.AccountWallet;
 import com.exchange.payment_system.domain.DigitalWallet;
 import com.exchange.payment_system.domain.transactions.InternalWithdrawal;
 import com.exchange.payment_system.repository.InternalWithdrawalRepository;
@@ -17,7 +18,9 @@ public class InternalWithdrawalProcessingServiceBean implements TransactionProce
 
     private final InternalWithdrawalRepository internalWithdrawalRepository;
 
-    private final WalletProcessingService<DigitalWallet> walletProcessingService;
+    private final WalletProcessingService<DigitalWallet> digitalWalletProcessing;
+
+    private final WalletProcessingService<AccountWallet> accountWalletProcessing;
 
     private final TransactionValidationService<InternalWithdrawal> transactionValidationService;
 
@@ -35,13 +38,13 @@ public class InternalWithdrawalProcessingServiceBean implements TransactionProce
                 .map(withdrawal -> {
                     transactionValidationService.validate(withdrawal);
                     withdrawal.setStatus("DONE");
-                    walletProcessingService.withdrawalConfirmed(
-                            withdrawal.getFrom().getNumber(),
+                    digitalWalletProcessing.withdrawalConfirmed(
+                            withdrawal.getFrom_digital_wallet(),
                             withdrawal.getAmount(),
                             withdrawal.getEmail()
                     );
-                    walletProcessingService.depositConfirmed(
-                            withdrawal.getFrom().getNumber(),
+                    accountWalletProcessing.depositConfirmed(
+                            withdrawal.getTo_account_wallet(),
                             withdrawal.getAmount(),
                             withdrawal.getEmail()
                     );

@@ -1,20 +1,20 @@
 package com.exchange.payment_system.controller;
 
-import com.exchange.payment_system.domain.transactions.WithdrawalRequest;
-import com.exchange.payment_system.domain.dto.WithdrawalRequestDTO;
+import com.exchange.payment_system.domain.dto.InternalWithdrawalDTO;
+import com.exchange.payment_system.domain.transactions.InternalWithdrawal;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
-public interface WithdrawalRequestProcessing {
+public interface InternalWithdrawalProcessing {
 
     @PostMapping(value = "/w")
-    WithdrawalRequest startWithdrawalRequest(@RequestBody WithdrawalRequestDTO dto);
+    InternalWithdrawal startInternalWithdrawal(@RequestBody InternalWithdrawalDTO dto);
 
     @PutMapping(value = "/w/accept", params = {"id"})
-    void acceptWithdrawalRequest(@RequestParam Long id);
+    void acceptInternalWithdrawal(@RequestParam Long id);
 
     @PutMapping(value = "/w/decline", params = {"id"})
-    void declineWithdrawalRequest(@RequestParam Long id);
+    void declineInternalWithdrawal(@RequestParam Long id);
 }

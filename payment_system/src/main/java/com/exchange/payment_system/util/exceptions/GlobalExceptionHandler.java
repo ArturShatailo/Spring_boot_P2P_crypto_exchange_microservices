@@ -20,6 +20,13 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(CurrenciesAreNotEqualsException.class)
+    protected ResponseEntity<?> handleCurrenciesAreNotEqualsException(CurrenciesAreNotEqualsException ex, WebRequest request) {
+        ExceptionDetails errorDetails =
+                new ExceptionDetails(new Date(), ex.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
+    }
+
     @ExceptionHandler(DigitalWalletNotFoundException.class)
     protected ResponseEntity<?> handleDigitalWalletNotFoundException(DigitalWalletNotFoundException ex, WebRequest request) {
         ExceptionDetails errorDetails =
@@ -64,6 +71,13 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(InternalWithdrawalRequestNotFoundException.class)
     protected ResponseEntity<?> handleInternalWithdrawalRequestNotFoundException(InternalWithdrawalRequestNotFoundException ex, WebRequest request) {
+        ExceptionDetails errorDetails =
+                new ExceptionDetails(new Date(), ex.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(AccountWalletExistsException.class)
+    protected ResponseEntity<?> handleAccountWalletExistsException(AccountWalletExistsException ex, WebRequest request) {
         ExceptionDetails errorDetails =
                 new ExceptionDetails(new Date(), ex.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
