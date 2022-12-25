@@ -24,7 +24,7 @@ public class ClientRegistrationController implements ClientRegistration {
     @Override
     @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
-    public Client register(ClientRegisterDTO dto) {
+    public Client register(@RequestBody ClientRegisterDTO dto) {
         return clientRegisterService.register(clientMapper.registerDTOtoObject(dto));
     }
 }

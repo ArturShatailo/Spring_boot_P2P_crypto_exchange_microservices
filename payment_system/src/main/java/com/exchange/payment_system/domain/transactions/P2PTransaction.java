@@ -1,10 +1,9 @@
-package com.exchange.payment_system.domain;
+package com.exchange.payment_system.domain.transactions;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.util.Date;
 
 @Data
@@ -19,18 +18,20 @@ public class P2PTransaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String email;
+    private String email_from;
 
-    private String from_id;
+    private String email_to;
 
-    private String to_id;
+    private String from_wallet;
+
+    private String to_wallet;
 
     private Double amount;
 
-    private String currency;
-
     private Date timestamp = new Date();
 
-    private String status;
+    private String status = "NEW";
+
+    private Long currency_id;
 
 }

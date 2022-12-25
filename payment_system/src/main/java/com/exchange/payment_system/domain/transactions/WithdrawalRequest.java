@@ -1,18 +1,16 @@
-package com.exchange.payment_system.domain;
+package com.exchange.payment_system.domain.transactions;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
-
 @Data
 @Entity
-@Table(name = "internal_transactions")
+@Table(name = "withdrawal_requests")
 @AllArgsConstructor
 @NoArgsConstructor
-public class InternalTransaction {
+public class WithdrawalRequest {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,16 +18,12 @@ public class InternalTransaction {
 
     private String email;
 
-    private String from_id;
-
-    private String to_id;
-
     private Double amount;
 
-    private String currency;
+    private String wallet;
 
-    private Date timestamp = new Date();
+    private String status = "NEW";
 
-    private String status;
+    private Long currency_id;
 
 }

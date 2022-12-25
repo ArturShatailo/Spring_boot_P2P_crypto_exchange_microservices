@@ -1,4 +1,4 @@
-package com.exchange.payment_system.domain;
+package com.exchange.payment_system.domain.transactions;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -7,22 +7,23 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@Table(name = "account_wallets")
+@Table(name = "deposit_requests")
 @AllArgsConstructor
 @NoArgsConstructor
-public class AccountWallet {
+public class DepositRequest {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String identification_number;
-
     private String email;
 
-    private Double balance;
+    private Double amount;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private Currency currency;
+    private String wallet;
+
+    private Long currency_id;
+
+    private String status = "NEW";
 
 }
