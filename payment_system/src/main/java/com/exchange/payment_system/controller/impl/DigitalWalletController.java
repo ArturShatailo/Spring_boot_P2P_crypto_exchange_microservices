@@ -1,6 +1,6 @@
 package com.exchange.payment_system.controller.impl;
 
-import com.exchange.payment_system.domain.DigitalWallet;
+import com.exchange.payment_system.domain.wallets.DigitalWallet;
 import com.exchange.payment_system.service.WalletProcessingService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

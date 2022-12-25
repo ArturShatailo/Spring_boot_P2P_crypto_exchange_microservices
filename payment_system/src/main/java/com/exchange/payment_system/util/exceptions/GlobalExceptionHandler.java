@@ -20,6 +20,13 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(P2PTransactionNotFoundException.class)
+    protected ResponseEntity<?> handleP2PTransactionNotFoundException(P2PTransactionNotFoundException ex, WebRequest request) {
+        ExceptionDetails errorDetails =
+                new ExceptionDetails(new Date(), ex.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
+    }
+
     @ExceptionHandler(CurrenciesAreNotEqualsException.class)
     protected ResponseEntity<?> handleCurrenciesAreNotEqualsException(CurrenciesAreNotEqualsException ex, WebRequest request) {
         ExceptionDetails errorDetails =

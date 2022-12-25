@@ -1,5 +1,6 @@
-package com.exchange.payment_system.domain;
+package com.exchange.payment_system.domain.wallets;
 
+import com.exchange.payment_system.domain.Currency;
 import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -47,5 +48,19 @@ public class DigitalWallet {
         balance -= amount;
         calculateAvailableBalance();
     }
+
+    @Transactional
+    public void  p2pTransferBalance(Double amount) {
+        balance -= amount;
+        balance_held -= amount;
+        calculateAvailableBalance();
+    }
+
+    @Transactional
+    public void  holdBalance(Double amount) {
+        balance_held += amount;
+        calculateAvailableBalance();
+    }
+
 
 }

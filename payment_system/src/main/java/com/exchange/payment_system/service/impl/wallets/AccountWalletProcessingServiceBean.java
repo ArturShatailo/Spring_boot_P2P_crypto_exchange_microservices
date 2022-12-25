@@ -1,6 +1,6 @@
-package com.exchange.payment_system.service.impl;
+package com.exchange.payment_system.service.impl.wallets;
 
-import com.exchange.payment_system.domain.AccountWallet;
+import com.exchange.payment_system.domain.wallets.AccountWallet;
 import com.exchange.payment_system.repository.AccountWalletRepository;
 import com.exchange.payment_system.service.CurrencyService;
 import com.exchange.payment_system.service.WalletProcessingService;

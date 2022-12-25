@@ -1,6 +1,6 @@
-package com.exchange.payment_system.service.impl;
+package com.exchange.payment_system.service.impl.transactions;
 
-import com.exchange.payment_system.domain.AccountWallet;
+import com.exchange.payment_system.domain.wallets.AccountWallet;
 import com.exchange.payment_system.domain.transactions.DepositRequest;
 import com.exchange.payment_system.repository.DepositRequestRepository;
 import com.exchange.payment_system.service.TransactionProcessingService;

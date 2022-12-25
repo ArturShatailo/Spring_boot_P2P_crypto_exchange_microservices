@@ -1,5 +1,6 @@
-package com.exchange.payment_system.domain;
+package com.exchange.payment_system.domain.wallets;
 
+import com.exchange.payment_system.domain.Currency;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -35,5 +36,5 @@ public class AccountWallet {
         balance -= amount;
     }
 
-
+    //TODO: add pending transactions list
 }

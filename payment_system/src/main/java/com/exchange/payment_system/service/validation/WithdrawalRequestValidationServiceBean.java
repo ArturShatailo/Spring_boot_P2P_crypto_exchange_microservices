@@ -1,6 +1,6 @@
 package com.exchange.payment_system.service.validation;
 
-import com.exchange.payment_system.domain.AccountWallet;
+import com.exchange.payment_system.domain.wallets.AccountWallet;
 import com.exchange.payment_system.domain.transactions.WithdrawalRequest;
 import com.exchange.payment_system.repository.AccountWalletRepository;
 import com.exchange.payment_system.util.configuration.PaymentSystemConfig;
