@@ -10,6 +10,7 @@
         <module>clients_management</module>
         <module>verification</module>
         <module>payment_system</module>
+        <module>payment_methods_management</module>
     </modules>
     <version>1.0-SNAPSHOT</version>
 

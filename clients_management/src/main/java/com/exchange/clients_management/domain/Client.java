@@ -27,6 +27,9 @@ public class Client {
 
     private String phone_number;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    private Address address;
+
     private String email;
 
     private String password;
