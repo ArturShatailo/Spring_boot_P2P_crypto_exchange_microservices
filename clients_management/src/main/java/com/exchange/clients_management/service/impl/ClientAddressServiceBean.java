@@ -1,7 +1,6 @@
 package com.exchange.clients_management.service.impl;
 
 import com.exchange.clients_management.domain.Address;
-import com.exchange.clients_management.domain.Client;
 import com.exchange.clients_management.repository.AddressRepository;
 import com.exchange.clients_management.repository.ClientRepository;
 import com.exchange.clients_management.service.ClientAddressService;
@@ -20,10 +19,28 @@ public class ClientAddressServiceBean implements ClientAddressService {
 
     @Override
     @Transactional
-    public Address add(Address address, Long id) {
-        Client client = clientRepository.findById(id)
-                .orElseThrow(() -> new ClientNotFoundException("Can't find client with id: " + id));
-        client.setAddress(address);
-        return clientRepository.save(client).getAddress();
+    public void add(Address address) {
+        addressRepository.findAddressByClientID(address.getClientID())
+                .ifPresentOrElse(
+                        a -> updateExistingAddress(a, address),
+                        () -> updateNewAddress(address));
+    }
+
+    private void updateNewAddress(Address address){
+        clientRepository.findById(address.getClientID())
+                .map(c -> {
+                    c.setAddress(address);
+                    return clientRepository.save(c);
+                })
+                .orElseThrow(() -> new ClientNotFoundException("Can't find client with id: " + address.getClientID()));
+    }
+
+    private void updateExistingAddress(Address a, Address address) {
+        a.setCity(address.getCity());
+        a.setState(address.getState());
+        a.setCountry(address.getCountry());
+        a.setPostalCode(address.getPostalCode());
+        a.setDetails(address.getDetails());
+        addressRepository.save(a);
     }
 }

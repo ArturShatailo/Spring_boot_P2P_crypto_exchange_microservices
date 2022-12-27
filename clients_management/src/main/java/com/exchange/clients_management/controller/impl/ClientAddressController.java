@@ -1,7 +1,6 @@
 package com.exchange.clients_management.controller.impl;
 
 import com.exchange.clients_management.controller.ClientAddress;
-import com.exchange.clients_management.domain.Address;
 import com.exchange.clients_management.domain.dto.AddressDTO;
 import com.exchange.clients_management.service.ClientAddressService;
 import com.exchange.clients_management.util.mapper.AddressMapper;
@@ -24,8 +23,8 @@ public class ClientAddressController implements ClientAddress {
     @Override
     @PutMapping(value = "/address")
     @ResponseStatus(HttpStatus.OK)
-    public Address saveAddress(@RequestBody AddressDTO dto, @RequestParam Long id){
-        return clientAddressService.add(addressMapper.addressDTOtoObject(dto), id);
+    public void saveAddress(@RequestBody AddressDTO dto){
+        clientAddressService.add(addressMapper.addressDTOtoObject(dto));
     }
 
 }

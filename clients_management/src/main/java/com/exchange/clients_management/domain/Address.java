@@ -24,6 +24,8 @@ public class Address {
 
     private String details;
 
-    private String postal_code;
+    private String postalCode;
+
+    private Long clientID;
 
 }

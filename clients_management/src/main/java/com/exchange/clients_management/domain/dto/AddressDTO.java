@@ -29,6 +29,8 @@ public class AddressDTO {
 
     @NotNull(message = "Postal code cannot not be null")
     @Size(min = 4, max = 8, message = "Postal code must be between 4 and 8 characters long")
-    private String postal_code;
+    private String postalCode;
+
+    private Long clientID;
 
 }
