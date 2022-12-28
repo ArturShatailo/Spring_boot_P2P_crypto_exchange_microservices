@@ -1,4 +1,4 @@
-package com.payment_methods_management.domain;
+package com.exchange.payment_methods_management.domain;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -9,14 +9,14 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "paypal_details")
-public class PayPalDetails {
+@Table(name = "bank_details")
+public class BankDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String email;
+    private String iban;
 
     private String name;
 
@@ -25,5 +25,9 @@ public class PayPalDetails {
     @ManyToOne(cascade = CascadeType.ALL)
     private PaymentMethod paymentMethod;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Bank bank;
+
     private Long client_id;
+
 }

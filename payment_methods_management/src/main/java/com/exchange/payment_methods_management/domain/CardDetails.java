@@ -1,4 +1,4 @@
-package com.payment_methods_management.domain;
+package com.exchange.payment_methods_management.domain;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -22,11 +22,11 @@ public class CardDetails {
 
     private String surname;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     private PaymentMethod paymentMethod;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    private Bank bank_issuer;
+    @ManyToOne(cascade = CascadeType.MERGE)
+    private Bank bankIssuer;
 
-    private Long client_id;
+    private Long clientID;
 }
