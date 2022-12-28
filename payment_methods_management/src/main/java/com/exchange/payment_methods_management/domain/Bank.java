@@ -1,4 +1,4 @@
-package com.payment_methods_management.domain;
+package com.exchange.payment_methods_management.domain;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -15,7 +15,6 @@ public class Bank {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
 
     private String name;
 

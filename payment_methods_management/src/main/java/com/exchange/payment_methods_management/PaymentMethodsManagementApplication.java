@@ -1,4 +1,4 @@
-package com.payment_methods_management;
+package com.exchange.payment_methods_management;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

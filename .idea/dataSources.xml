@@ -22,5 +22,12 @@
       <jdbc-url>jdbc:postgresql://localhost:5432/p2p_payment_system</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="p2p_payment_methods_management@localhost" uuid="a34c30ca-7369-4803-b060-a286e4617044">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/p2p_payment_methods_management</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>
