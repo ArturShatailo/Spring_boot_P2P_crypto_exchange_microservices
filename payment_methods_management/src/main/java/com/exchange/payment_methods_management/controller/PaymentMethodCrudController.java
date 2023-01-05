@@ -13,7 +13,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "/api/p-methods/banks", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/p-methods/methods", produces = MediaType.APPLICATION_JSON_VALUE)
 @AllArgsConstructor
 public class PaymentMethodCrudController implements CrudControllerMethods<PaymentMethodSaveDTO, PaymentMethod, Long> {
 
