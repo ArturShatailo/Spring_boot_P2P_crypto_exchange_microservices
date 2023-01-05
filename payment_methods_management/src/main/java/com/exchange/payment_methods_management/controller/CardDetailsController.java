@@ -1,7 +1,8 @@
 package com.exchange.payment_methods_management.controller;
 
+import com.exchange.payment_methods_management.domain.CardDetails;
 import com.exchange.payment_methods_management.domain.dto.CardDetailsDTO;
-import com.exchange.payment_methods_management.service.CardDetailsService;
+import com.exchange.payment_methods_management.service.DetailsCrudService;
 import com.exchange.payment_methods_management.util.mapper.CardDetailsMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +18,7 @@ public class CardDetailsController {
 
     private final CardDetailsMapper cardDetailsMapper;
 
-    private final CardDetailsService cardDetailsService;
+    private final DetailsCrudService<CardDetails, Long> cardDetailsService;
 
     @PostMapping(value = "/c")
     @ResponseStatus(HttpStatus.CREATED)

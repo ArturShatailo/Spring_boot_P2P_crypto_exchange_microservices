@@ -17,6 +17,6 @@ public class CardDetailsDTO {
 
     public BankDTO bankIssuer;
 
-    public Long clientID;
+    public String clientEmail;
 
 }
