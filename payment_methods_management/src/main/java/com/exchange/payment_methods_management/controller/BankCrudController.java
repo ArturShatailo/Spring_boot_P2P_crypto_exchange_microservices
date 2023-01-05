@@ -16,7 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/api/p-methods/banks", produces = MediaType.APPLICATION_JSON_VALUE)
 @AllArgsConstructor
-public class BankCrudController implements CrudControllerMethods<BankSaveDTO, Bank> {
+public class BankCrudController implements CrudControllerMethods<BankSaveDTO, Bank, Long> {
 
     private final CrudService<Bank, Long> bankCrudService;
 
