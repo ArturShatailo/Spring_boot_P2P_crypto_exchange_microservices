@@ -5,17 +5,15 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class BankDetailsDTO {
+public class PayPalDetailsDTO {
 
-    public String iban;
+    public String email;
 
     public String name;
 
     public String surname;
 
     public PaymentMethodDTO paymentMethod;
-
-    public BankDTO bank;
 
     public String clientEmail;
 
