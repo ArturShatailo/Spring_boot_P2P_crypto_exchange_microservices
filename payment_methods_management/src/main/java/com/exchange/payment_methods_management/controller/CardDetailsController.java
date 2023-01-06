@@ -14,33 +14,37 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(value = "/api/p-methods/c", produces = MediaType.APPLICATION_JSON_VALUE)
 @AllArgsConstructor
-public class CardDetailsController {
+public class CardDetailsController implements DetailsCrudControllerMethods<CardDetailsDTO, CardDetails, Long>{
 
     private final CardDetailsMapper cardDetailsMapper;
 
     private final DetailsCrudService<CardDetails, Long> cardDetailsService;
 
+    @Override
     @PostMapping(value = "/")
     @ResponseStatus(HttpStatus.CREATED)
-    public void addCardDetails(@RequestBody CardDetailsDTO dto){
+    public void addDetails(@RequestBody CardDetailsDTO dto){
         cardDetailsService.add(cardDetailsMapper.cardDetailsDTOtoObject(dto));
     }
 
+    @Override
     @PutMapping(value = "/", params = {"id"})
     @ResponseStatus(HttpStatus.OK)
-    public void updateCardDetails(@RequestBody CardDetailsDTO dto, @RequestParam Long id) {
+    public void updateDetails(@RequestBody CardDetailsDTO dto, @RequestParam Long id) {
         cardDetailsService.update(cardDetailsMapper.cardDetailsDTOtoObject(dto), id);
     }
 
+    @Override
     @DeleteMapping(value = "/" , params = {"id", "email"})
     @ResponseStatus(HttpStatus.OK)
-    public void deleteCardDetails(@RequestParam Long id, @RequestParam String email) {
+    public void deleteDetails(@RequestParam Long id, @RequestParam String email) {
         cardDetailsService.delete(id, email);
     }
 
+    @Override
     @GetMapping(value = "/", params = {"id", "email"})
     @ResponseStatus(HttpStatus.FOUND)
-    public CardDetails getCardDetails(@RequestParam Long id, @RequestParam String email) {
+    public CardDetails getDetails(@RequestParam Long id, @RequestParam String email) {
         return cardDetailsService.get(id, email);
     }
 
