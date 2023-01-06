@@ -1,5 +1,6 @@
-package com.exchange.payment_methods_management.controller;
+package com.exchange.payment_methods_management.controller.impl;
 
+import com.exchange.payment_methods_management.controller.DetailsCrudControllerMethods;
 import com.exchange.payment_methods_management.domain.CardDetails;
 import com.exchange.payment_methods_management.domain.dto.CardDetailsDTO;
 import com.exchange.payment_methods_management.service.DetailsCrudService;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(value = "/api/p-methods/c", produces = MediaType.APPLICATION_JSON_VALUE)
 @AllArgsConstructor
-public class CardDetailsController implements DetailsCrudControllerMethods<CardDetailsDTO, CardDetails, Long>{
+public class CardDetailsController implements DetailsCrudControllerMethods<CardDetailsDTO, CardDetails, Long> {
 
     private final CardDetailsMapper cardDetailsMapper;
 

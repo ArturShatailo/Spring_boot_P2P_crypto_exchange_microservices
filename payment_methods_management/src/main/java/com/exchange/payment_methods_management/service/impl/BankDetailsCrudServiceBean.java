@@ -1,14 +1,15 @@
-package com.exchange.payment_methods_management.service;
+package com.exchange.payment_methods_management.service.impl;
 
 import com.exchange.payment_methods_management.domain.BankDetails;
 import com.exchange.payment_methods_management.repository.BankDetailsRepository;
+import com.exchange.payment_methods_management.service.DetailsCrudService;
 import com.exchange.payment_methods_management.util.exceptions.BankDetailsNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class BankDetailsCrudServiceBean implements DetailsCrudService<BankDetails, Long>{
+public class BankDetailsCrudServiceBean implements DetailsCrudService<BankDetails, Long> {
 
     private final BankDetailsRepository bankDetailsRepository;
 

@@ -1,5 +1,6 @@
-package com.exchange.payment_methods_management.controller;
+package com.exchange.payment_methods_management.controller.impl;
 
+import com.exchange.payment_methods_management.controller.CrudControllerMethods;
 import com.exchange.payment_methods_management.domain.PaymentMethod;
 import com.exchange.payment_methods_management.domain.dto.PaymentMethodSaveDTO;
 import com.exchange.payment_methods_management.service.CrudService;

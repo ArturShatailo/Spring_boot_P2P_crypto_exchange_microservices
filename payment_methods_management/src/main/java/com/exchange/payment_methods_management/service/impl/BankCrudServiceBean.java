@@ -1,7 +1,8 @@
-package com.exchange.payment_methods_management.service;
+package com.exchange.payment_methods_management.service.impl;
 
 import com.exchange.payment_methods_management.domain.Bank;
 import com.exchange.payment_methods_management.repository.BankRepository;
+import com.exchange.payment_methods_management.service.CrudService;
 import com.exchange.payment_methods_management.util.exceptions.BankNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;

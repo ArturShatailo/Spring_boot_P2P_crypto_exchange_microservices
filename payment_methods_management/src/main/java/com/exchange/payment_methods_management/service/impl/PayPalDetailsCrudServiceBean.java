@@ -1,14 +1,15 @@
-package com.exchange.payment_methods_management.service;
+package com.exchange.payment_methods_management.service.impl;
 
 import com.exchange.payment_methods_management.domain.PayPalDetails;
 import com.exchange.payment_methods_management.repository.PayPalDetailsRepository;
+import com.exchange.payment_methods_management.service.DetailsCrudService;
 import com.exchange.payment_methods_management.util.exceptions.PayPalDetailsNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class PayPalDetailsCrudServiceBean implements DetailsCrudService<PayPalDetails, Long>{
+public class PayPalDetailsCrudServiceBean implements DetailsCrudService<PayPalDetails, Long> {
 
     private final PayPalDetailsRepository payPalDetailsRepository;
 
