@@ -27,6 +27,13 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(PayPalDetailsNotFoundException.class)
+    protected ResponseEntity<?> handlePayPalDetailsNotFoundException(PayPalDetailsNotFoundException ex, WebRequest request) {
+        ExceptionDetails errorDetails =
+                new ExceptionDetails(new Date(), ex.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
+    }
+
     @ExceptionHandler(BankDetailsNotFoundException.class)
     protected ResponseEntity<?> handleBankDetailsNotFoundException(BankDetailsNotFoundException ex, WebRequest request) {
         ExceptionDetails errorDetails =
