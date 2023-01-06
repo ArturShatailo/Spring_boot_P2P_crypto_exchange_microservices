@@ -22,12 +22,16 @@ public class BankDetails {
 
     private String surname;
 
+    private Boolean deleted = false;
+
+    private Boolean active = true;
+
     @ManyToOne(cascade = CascadeType.ALL)
     private PaymentMethod paymentMethod;
 
     @ManyToOne(cascade = CascadeType.ALL)
     private Bank bank;
 
-    private Long client_id;
+    private String clientEmail;
 
 }

@@ -22,11 +22,15 @@ public class CardDetails {
 
     private String surname;
 
+    private Boolean deleted = false;
+
+    private Boolean active = true;
+
     @ManyToOne(cascade = CascadeType.MERGE)
     private PaymentMethod paymentMethod;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     private Bank bankIssuer;
 
-    private Long clientID;
+    private String clientEmail;
 }

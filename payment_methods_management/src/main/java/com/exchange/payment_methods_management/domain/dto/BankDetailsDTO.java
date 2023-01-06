@@ -5,9 +5,9 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class CardDetailsDTO {
+public class BankDetailsDTO {
 
-    public String number;
+    public String iban;
 
     public String name;
 
@@ -15,7 +15,7 @@ public class CardDetailsDTO {
 
     public PaymentMethodDTO paymentMethod;
 
-    public BankDTO bankIssuer;
+    public BankDTO bank;
 
     public String clientEmail;
 

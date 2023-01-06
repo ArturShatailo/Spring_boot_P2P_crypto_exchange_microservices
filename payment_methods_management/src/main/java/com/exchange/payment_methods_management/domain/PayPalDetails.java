@@ -22,7 +22,11 @@ public class PayPalDetails {
 
     private String surname;
 
+    private Boolean deleted = false;
+
+    private Boolean active = true;
+
     private Long paymentMethodID;
 
-    private Long clientID;
+    private String clientEmail;
 }

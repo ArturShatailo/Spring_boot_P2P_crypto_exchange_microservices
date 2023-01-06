@@ -13,22 +13,36 @@ import java.util.Date;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(ClientNotFoundException.class)
-    protected ResponseEntity<?> handleClientNotFoundException(ClientNotFoundException ex, WebRequest request) {
+    @ExceptionHandler(BankNotFoundException.class)
+    protected ResponseEntity<?> handleBankNotFoundException(BankNotFoundException ex, WebRequest request) {
         ExceptionDetails errorDetails =
                 new ExceptionDetails(new Date(), ex.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(EmailRegisteredException.class)
-    protected ResponseEntity<?> handleEmailRegisteredException(EmailRegisteredException ex, WebRequest request) {
+    @ExceptionHandler(PaymentMethodNotFoundException.class)
+    protected ResponseEntity<?> handlePaymentMethodNotFoundException(PaymentMethodNotFoundException ex, WebRequest request) {
         ExceptionDetails errorDetails =
                 new ExceptionDetails(new Date(), ex.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(AddressNotFoundException.class)
-    protected ResponseEntity<?> handleAddressNotFoundException(AddressNotFoundException ex, WebRequest request) {
+    @ExceptionHandler(PayPalDetailsNotFoundException.class)
+    protected ResponseEntity<?> handlePayPalDetailsNotFoundException(PayPalDetailsNotFoundException ex, WebRequest request) {
+        ExceptionDetails errorDetails =
+                new ExceptionDetails(new Date(), ex.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(BankDetailsNotFoundException.class)
+    protected ResponseEntity<?> handleBankDetailsNotFoundException(BankDetailsNotFoundException ex, WebRequest request) {
+        ExceptionDetails errorDetails =
+                new ExceptionDetails(new Date(), ex.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(CardDetailsNotFoundException.class)
+    protected ResponseEntity<?> handleCardDetailsNotFoundException(CardDetailsNotFoundException ex, WebRequest request) {
         ExceptionDetails errorDetails =
                 new ExceptionDetails(new Date(), ex.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
