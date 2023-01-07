@@ -17,6 +17,6 @@ public class InternalDepositDTO {
 
     public String to_digital_wallet;
 
-    private Long currency_id;
+    private Long crypto_currency_id;
 
 }

@@ -1,5 +1,6 @@
 package com.exchange.payment_system.service.impl.wallets;
 
+import com.exchange.payment_system.domain.CryptoCurrency;
 import com.exchange.payment_system.domain.wallets.DigitalWallet;
 import com.exchange.payment_system.repository.DigitalWalletRepository;
 import com.exchange.payment_system.service.CurrencyService;
@@ -15,7 +16,7 @@ public class DigitalWalletProcessingServiceBean implements WalletProcessingServi
 
     private final DigitalWalletRepository digitalWalletRepository;
 
-    private final CurrencyService currencyService;
+    private final CurrencyService<CryptoCurrency> currencyService;
 
     @Override
     public void depositConfirmed(String wallet, Double amount, String email) {
@@ -47,7 +48,7 @@ public class DigitalWalletProcessingServiceBean implements WalletProcessingServi
                         .balance_held(0.0)
                         .balance_available(0.0)
                         .number("")
-                        .currency(currencyService.getById(currency_id))
+                        .cryptoCurrency(currencyService.getById(currency_id))
                         .build()
         );
     }

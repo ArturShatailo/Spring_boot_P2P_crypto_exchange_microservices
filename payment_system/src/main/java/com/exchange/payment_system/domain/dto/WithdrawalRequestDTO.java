@@ -15,6 +15,6 @@ public class WithdrawalRequestDTO {
 
     public String wallet;
 
-    private Long currency_id;
+    private Long crypto_currency_id;
 
 }

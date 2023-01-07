@@ -22,7 +22,7 @@ public class DepositRequest {
 
     private String wallet;
 
-    private Long currency_id;
+    private Long crypto_currency_id;
 
     private String status = "NEW";
 

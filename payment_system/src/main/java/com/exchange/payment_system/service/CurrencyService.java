@@ -1,9 +1,7 @@
 package com.exchange.payment_system.service;
 
-import com.exchange.payment_system.domain.Currency;
+public interface CurrencyService <C> {
 
-public interface CurrencyService {
-
-    Currency getById(Long id);
+    C getById(Long id);
 
 }

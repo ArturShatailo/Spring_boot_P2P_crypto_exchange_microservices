@@ -6,5 +6,5 @@ public interface WalletProcessingService<W> {
 
     void withdrawalConfirmed(String wallet, Double amount, String email);
 
-    W addWallet(String email, Long currency_id);
+    W addWallet(String email, Long id);
 }

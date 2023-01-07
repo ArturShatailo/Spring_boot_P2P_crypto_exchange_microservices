@@ -17,6 +17,6 @@ public class InternalWithdrawalDTO {
 
     public String to_account_wallet;
 
-    private Long currency_id;
+    private Long crypto_currency_id;
 
 }

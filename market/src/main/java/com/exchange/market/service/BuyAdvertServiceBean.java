@@ -13,6 +13,8 @@ public class BuyAdvertServiceBean implements BuyAdvertService {
 
     @Override
     public void create(BuyAdvert buyAdvert) {
+
+        //check verification ?
         buyAdvertRepository.save(buyAdvert);
     }
 }

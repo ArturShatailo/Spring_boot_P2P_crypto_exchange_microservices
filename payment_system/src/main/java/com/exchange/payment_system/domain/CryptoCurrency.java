@@ -7,10 +7,10 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@Table(name = "currencies")
+@Table(name = "crypto_currencies")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Currency {
+public class CryptoCurrency {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

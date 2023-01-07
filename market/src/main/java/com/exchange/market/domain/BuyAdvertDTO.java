@@ -11,8 +11,6 @@ public class BuyAdvertDTO {
 
     public String clientEmail;
 
-    public String type = "buy";
-
     public String activeID;
 
     public String fiatID;
