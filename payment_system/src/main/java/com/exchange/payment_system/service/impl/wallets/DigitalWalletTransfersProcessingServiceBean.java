@@ -3,8 +3,9 @@ package com.exchange.payment_system.service.impl.wallets;
 import com.exchange.payment_system.domain.CryptoCurrency;
 import com.exchange.payment_system.domain.wallets.DigitalWallet;
 import com.exchange.payment_system.repository.DigitalWalletRepository;
+import com.exchange.payment_system.service.AddWalletService;
 import com.exchange.payment_system.service.CurrencyService;
-import com.exchange.payment_system.service.WalletProcessingService;
+import com.exchange.payment_system.service.WalletTransfersProcessingService;
 import com.exchange.payment_system.util.exceptions.AccountWalletNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class DigitalWalletProcessingServiceBean implements WalletProcessingService<DigitalWallet> {
+public class DigitalWalletTransfersProcessingServiceBean implements WalletTransfersProcessingService<DigitalWallet>, AddWalletService<DigitalWallet> {
 
     private final DigitalWalletRepository digitalWalletRepository;
 

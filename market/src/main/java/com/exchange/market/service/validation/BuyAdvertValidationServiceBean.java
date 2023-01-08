@@ -22,7 +22,7 @@ public class BuyAdvertValidationServiceBean implements AdvertValidationService<B
         boolean verification = Boolean.TRUE.equals(
                 marketConfig.restTemplate().getForObject(uri, boolean.class, email)
         );
-        if (!verification) throw new ClientIsNotVerifiedException("Client with email: " + email + "is not verified");
+        if (!verification) throw new ClientIsNotVerifiedException("Client with email: " + email + " is not verified");
     }
 
 }

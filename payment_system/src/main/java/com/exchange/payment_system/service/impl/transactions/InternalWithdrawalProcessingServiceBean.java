@@ -5,7 +5,7 @@ import com.exchange.payment_system.domain.wallets.DigitalWallet;
 import com.exchange.payment_system.domain.transactions.InternalWithdrawal;
 import com.exchange.payment_system.repository.InternalWithdrawalRepository;
 import com.exchange.payment_system.service.TransactionProcessingService;
-import com.exchange.payment_system.service.WalletProcessingService;
+import com.exchange.payment_system.service.WalletTransfersProcessingService;
 import com.exchange.payment_system.service.validation.TransactionValidationService;
 import com.exchange.payment_system.util.exceptions.InternalWithdrawalRequestNotFoundException;
 import jakarta.transaction.Transactional;
@@ -18,9 +18,9 @@ public class InternalWithdrawalProcessingServiceBean implements TransactionProce
 
     private final InternalWithdrawalRepository internalWithdrawalRepository;
 
-    private final WalletProcessingService<DigitalWallet> digitalWalletProcessing;
+    private final WalletTransfersProcessingService<DigitalWallet> digitalWalletProcessing;
 
-    private final WalletProcessingService<AccountWallet> accountWalletProcessing;
+    private final WalletTransfersProcessingService<AccountWallet> accountWalletProcessing;
 
     private final TransactionValidationService<InternalWithdrawal> transactionValidationService;
 

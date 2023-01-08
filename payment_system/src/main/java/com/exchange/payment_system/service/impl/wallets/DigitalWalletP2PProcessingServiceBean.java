@@ -2,7 +2,7 @@ package com.exchange.payment_system.service.impl.wallets;
 
 import com.exchange.payment_system.repository.DigitalWalletRepository;
 import com.exchange.payment_system.service.WalletP2PProcessingService;
-import com.exchange.payment_system.util.exceptions.AccountWalletNotFoundException;
+import com.exchange.payment_system.util.exceptions.DigitalWalletNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,23 +13,13 @@ public class DigitalWalletP2PProcessingServiceBean implements WalletP2PProcessin
     private final DigitalWalletRepository digitalWalletRepository;
 
     @Override
-    public void p2pDigitalWalletHoldFunds(String wallet, Double amount, String email) {
-        digitalWalletRepository.findDigitalWalletByEmailAndNumber(email, wallet)
-                .map(dw -> {
-                    dw.holdBalance(amount);
-                    return digitalWalletRepository.save(dw);
-                })
-                .orElseThrow(() -> new AccountWalletNotFoundException("Can't find digital wallet with email: " + email + " and number: " + wallet));
-    }
-
-    @Override
     public void p2pDepositConfirmed(String wallet, Double amount, String email) {
         digitalWalletRepository.findDigitalWalletByEmailAndNumber(email, wallet)
                 .map(dw -> {
                     dw.increaseBalance(amount);
                     return digitalWalletRepository.save(dw);
                 })
-                .orElseThrow(() -> new AccountWalletNotFoundException("Can't find digital wallet with email: " + email + " and number: " + wallet));
+                .orElseThrow(() -> new DigitalWalletNotFoundException("Can't find digital wallet with email: " + email + " and number: " + wallet));
     }
 
     @Override
@@ -39,7 +29,7 @@ public class DigitalWalletP2PProcessingServiceBean implements WalletP2PProcessin
                     dw.p2pTransferBalance(amount);
                     return digitalWalletRepository.save(dw);
                 })
-                .orElseThrow(() -> new AccountWalletNotFoundException("Can't find digital wallet with email: " + email + " and number: " + wallet));
+                .orElseThrow(() -> new DigitalWalletNotFoundException("Can't find digital wallet with email: " + email + " and number: " + wallet));
     }
 
 }

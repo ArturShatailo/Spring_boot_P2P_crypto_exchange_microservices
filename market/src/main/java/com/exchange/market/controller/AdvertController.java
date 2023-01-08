@@ -1,6 +1,7 @@
 package com.exchange.market.controller;
 
-import com.exchange.market.domain.BuyAdvertDTO;
+import com.exchange.market.domain.dto.BuyAdvertDTO;
+import com.exchange.market.domain.dto.BuyAdvertInfoDTO;
 import com.exchange.market.service.BuyAdvertService;
 import com.exchange.market.util.mapper.BuyAdvertMapper;
 import lombok.AllArgsConstructor;
@@ -23,6 +24,12 @@ public class AdvertController {
     @ResponseStatus(HttpStatus.CREATED)
     public void createBuyAdvert(@RequestBody BuyAdvertDTO dto){
         buyAdvertService.create(buyAdvertMapper.buyAdvertDTOtoObject(dto));
+    }
+
+    @GetMapping(value = "/{id}")
+    @ResponseStatus(HttpStatus.FOUND)
+    public BuyAdvertInfoDTO getInfo(@PathVariable Long id){
+        return buyAdvertMapper.objectToBuyAdvertInfoDTO(buyAdvertService.getInfo(id));
     }
 
 }

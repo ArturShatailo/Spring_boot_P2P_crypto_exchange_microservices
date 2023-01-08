@@ -90,12 +90,5 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-autoconfigure</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.vladmihalcea</groupId>
-            <artifactId>hibernate-types-52</artifactId>
-            <version>2.19.2</version>
-            <scope>compile</scope>
-        </dependency>
-
     </dependencies>
 </project>

@@ -5,7 +5,7 @@ import com.exchange.payment_system.domain.wallets.DigitalWallet;
 import com.exchange.payment_system.domain.transactions.InternalDeposit;
 import com.exchange.payment_system.repository.InternalDepositRepository;
 import com.exchange.payment_system.service.TransactionProcessingService;
-import com.exchange.payment_system.service.WalletProcessingService;
+import com.exchange.payment_system.service.WalletTransfersProcessingService;
 import com.exchange.payment_system.service.validation.TransactionValidationService;
 import com.exchange.payment_system.util.exceptions.InternalDepositRequestNotFoundException;
 import jakarta.transaction.Transactional;
@@ -18,9 +18,9 @@ public class InternalDepositProcessingServiceBean implements TransactionProcessi
 
     private final InternalDepositRepository internalDepositRepository;
 
-    private final WalletProcessingService<DigitalWallet> digitalWalletProcessing;
+    private final WalletTransfersProcessingService<DigitalWallet> digitalWalletProcessing;
 
-    private final WalletProcessingService<AccountWallet> accountWalletProcessing;
+    private final WalletTransfersProcessingService<AccountWallet> accountWalletProcessing;
 
     private final TransactionValidationService<InternalDeposit> transactionValidationService;
 

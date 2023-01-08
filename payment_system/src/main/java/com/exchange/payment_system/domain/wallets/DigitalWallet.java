@@ -50,14 +50,14 @@ public class DigitalWallet {
     }
 
     @Transactional
-    public void  p2pTransferBalance(Double amount) {
+    public void p2pTransferBalance(Double amount) {
         balance -= amount;
         balance_held -= amount;
         calculateAvailableBalance();
     }
 
     @Transactional
-    public void  holdBalance(Double amount) {
+    public void holdBalance(Double amount) {
         balance_held += amount;
         calculateAvailableBalance();
     }

@@ -20,11 +20,7 @@ public class P2PTransactionProcessingServiceBean implements TransactionProcessin
     @Transactional
     @Override
     public P2PTransaction create(P2PTransaction transaction) {
-        digitalWalletProcessing.p2pDigitalWalletHoldFunds(
-                transaction.getFrom_wallet(),
-                transaction.getAmount(),
-                transaction.getEmail_from()
-        );
+        //validation
         return p2pTransactionRepository.save(transaction);
     }
 

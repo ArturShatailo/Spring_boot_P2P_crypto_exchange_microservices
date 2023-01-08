@@ -1,4 +1,4 @@
-package com.exchange.market.domain;
+package com.exchange.market.domain.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
