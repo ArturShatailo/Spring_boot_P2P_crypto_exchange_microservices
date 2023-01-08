@@ -19,6 +19,6 @@ public class P2PTransactionDTO {
 
     private Double amount;
 
-    private Long currency_id;
+    private Long crypto_currency_id;
 
 }

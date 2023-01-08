@@ -1,6 +1,6 @@
 package com.exchange.payment_system.domain.wallets;
 
-import com.exchange.payment_system.domain.Currency;
+import com.exchange.payment_system.domain.CryptoCurrency;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,7 +26,7 @@ public class AccountWallet {
     private Double balance;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    private Currency currency;
+    private CryptoCurrency cryptoCurrency;
 
     public void increaseBalance(Double amount) {
         balance += amount;

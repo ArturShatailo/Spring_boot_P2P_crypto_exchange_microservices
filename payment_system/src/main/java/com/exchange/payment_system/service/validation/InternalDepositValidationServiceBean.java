@@ -1,7 +1,7 @@
 package com.exchange.payment_system.service.validation;
 
 import com.exchange.payment_system.domain.wallets.AccountWallet;
-import com.exchange.payment_system.domain.Currency;
+import com.exchange.payment_system.domain.CryptoCurrency;
 import com.exchange.payment_system.domain.wallets.DigitalWallet;
 import com.exchange.payment_system.domain.transactions.InternalDeposit;
 import com.exchange.payment_system.repository.AccountWalletRepository;
@@ -31,13 +31,13 @@ public class InternalDepositValidationServiceBean implements TransactionValidati
                 transaction.getFrom_account_wallet()
         );
 
-        validateCurrencies(destination.getCurrency(), source.getCurrency());
+        validateCurrencies(destination.getCryptoCurrency(), source.getCryptoCurrency());
         validateAmount(source, transaction.getAmount());
     }
 
-    private void validateCurrencies(Currency c, Currency c1) {
+    private void validateCurrencies(CryptoCurrency c, CryptoCurrency c1) {
         if (!c.equals(c1))
-            throw new CurrenciesAreNotEqualsException("Currency: " + c.getName() + " cannot be transferred into currency: " + c1.getName());
+            throw new CurrenciesAreNotEqualsException("Cryptocurrency: " + c.getName() + " cannot be transferred into cryptocurrency: " + c1.getName());
     }
 
     private AccountWallet validateSource(String email, String number) {

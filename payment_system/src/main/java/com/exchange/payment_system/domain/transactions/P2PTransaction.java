@@ -32,6 +32,6 @@ public class P2PTransaction {
 
     private String status = "NEW";
 
-    private Long currency_id;
+    private Long crypto_currency_id;
 
 }

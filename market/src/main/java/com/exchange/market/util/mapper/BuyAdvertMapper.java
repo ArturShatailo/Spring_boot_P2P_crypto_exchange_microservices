@@ -1,7 +1,8 @@
 package com.exchange.market.util.mapper;
 
 import com.exchange.market.domain.BuyAdvert;
-import com.exchange.market.domain.BuyAdvertDTO;
+import com.exchange.market.domain.dto.BuyAdvertDTO;
+import com.exchange.market.domain.dto.BuyAdvertInfoDTO;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 
@@ -11,5 +12,9 @@ public interface BuyAdvertMapper {
     BuyAdvertDTO objectToBuyAdvertDTO(BuyAdvert object);
 
     BuyAdvert buyAdvertDTOtoObject(BuyAdvertDTO dto);
+
+    BuyAdvertInfoDTO objectToBuyAdvertInfoDTO(BuyAdvert object);
+
+    BuyAdvert buyAdvertInfoDTOtoObject(BuyAdvertInfoDTO dto);
 
 }

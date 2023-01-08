@@ -1,9 +1,11 @@
 package com.exchange.payment_system.service.impl.wallets;
 
+import com.exchange.payment_system.domain.CryptoCurrency;
 import com.exchange.payment_system.domain.wallets.DigitalWallet;
 import com.exchange.payment_system.repository.DigitalWalletRepository;
+import com.exchange.payment_system.service.AddWalletService;
 import com.exchange.payment_system.service.CurrencyService;
-import com.exchange.payment_system.service.WalletProcessingService;
+import com.exchange.payment_system.service.WalletTransfersProcessingService;
 import com.exchange.payment_system.util.exceptions.AccountWalletNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -11,11 +13,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class DigitalWalletProcessingServiceBean implements WalletProcessingService<DigitalWallet> {
+public class DigitalWalletTransfersProcessingServiceBean implements WalletTransfersProcessingService<DigitalWallet>, AddWalletService<DigitalWallet> {
 
     private final DigitalWalletRepository digitalWalletRepository;
 
-    private final CurrencyService currencyService;
+    private final CurrencyService<CryptoCurrency> currencyService;
 
     @Override
     public void depositConfirmed(String wallet, Double amount, String email) {
@@ -47,7 +49,7 @@ public class DigitalWalletProcessingServiceBean implements WalletProcessingServi
                         .balance_held(0.0)
                         .balance_available(0.0)
                         .number("")
-                        .currency(currencyService.getById(currency_id))
+                        .cryptoCurrency(currencyService.getById(currency_id))
                         .build()
         );
     }

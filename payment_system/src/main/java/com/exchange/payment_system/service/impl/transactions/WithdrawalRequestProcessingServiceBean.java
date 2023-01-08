@@ -4,7 +4,7 @@ import com.exchange.payment_system.domain.wallets.AccountWallet;
 import com.exchange.payment_system.domain.transactions.WithdrawalRequest;
 import com.exchange.payment_system.repository.WithdrawalRequestRepository;
 import com.exchange.payment_system.service.TransactionProcessingService;
-import com.exchange.payment_system.service.WalletProcessingService;
+import com.exchange.payment_system.service.WalletTransfersProcessingService;
 import com.exchange.payment_system.service.validation.TransactionValidationService;
 import com.exchange.payment_system.util.exceptions.WithdrawalRequestNotFoundException;
 import jakarta.transaction.Transactional;
@@ -17,7 +17,7 @@ public class WithdrawalRequestProcessingServiceBean implements TransactionProces
 
     private final WithdrawalRequestRepository withdrawalRequestRepository;
 
-    private final WalletProcessingService<AccountWallet> walletProcessingService;
+    private final WalletTransfersProcessingService<AccountWallet> walletTransfersProcessingService;
 
     private final TransactionValidationService<WithdrawalRequest> transactionValidationService;
 
@@ -36,7 +36,7 @@ public class WithdrawalRequestProcessingServiceBean implements TransactionProces
                 .map(withdrawal -> {
                     transactionValidationService.validate(withdrawal);
                     withdrawal.setStatus("DONE");
-                    walletProcessingService.withdrawalConfirmed(
+                    walletTransfersProcessingService.withdrawalConfirmed(
                             withdrawal.getWallet(),
                             withdrawal.getAmount(),
                             withdrawal.getEmail()

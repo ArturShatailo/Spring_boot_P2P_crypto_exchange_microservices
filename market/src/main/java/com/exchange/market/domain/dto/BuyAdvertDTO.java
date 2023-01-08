@@ -1,4 +1,4 @@
-package com.exchange.market.domain;
+package com.exchange.market.domain.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,8 +10,6 @@ import java.util.Set;
 public class BuyAdvertDTO {
 
     public String clientEmail;
-
-    public String type = "buy";
 
     public String activeID;
 

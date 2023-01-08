@@ -1,6 +1,6 @@
 package com.exchange.payment_system.domain.wallets;
 
-import com.exchange.payment_system.domain.Currency;
+import com.exchange.payment_system.domain.CryptoCurrency;
 import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -27,7 +27,7 @@ public class DigitalWallet {
     private Double balance;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    private Currency currency;
+    private CryptoCurrency cryptoCurrency;
 
     private Double balance_held;
 
@@ -50,14 +50,14 @@ public class DigitalWallet {
     }
 
     @Transactional
-    public void  p2pTransferBalance(Double amount) {
+    public void p2pTransferBalance(Double amount) {
         balance -= amount;
         balance_held -= amount;
         calculateAvailableBalance();
     }
 
     @Transactional
-    public void  holdBalance(Double amount) {
+    public void holdBalance(Double amount) {
         balance_held += amount;
         calculateAvailableBalance();
     }

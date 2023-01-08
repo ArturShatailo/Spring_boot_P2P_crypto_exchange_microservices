@@ -4,7 +4,7 @@ import com.exchange.payment_system.domain.wallets.AccountWallet;
 import com.exchange.payment_system.domain.transactions.DepositRequest;
 import com.exchange.payment_system.repository.DepositRequestRepository;
 import com.exchange.payment_system.service.TransactionProcessingService;
-import com.exchange.payment_system.service.WalletProcessingService;
+import com.exchange.payment_system.service.WalletTransfersProcessingService;
 import com.exchange.payment_system.service.validation.TransactionValidationService;
 import com.exchange.payment_system.util.exceptions.DepositRequestNotFoundException;
 import jakarta.transaction.Transactional;
@@ -19,7 +19,7 @@ public class DepositRequestProcessingServiceBean implements TransactionProcessin
 
     private final TransactionValidationService<DepositRequest> transactionValidationService;
 
-    private final WalletProcessingService<AccountWallet> walletProcessingService;
+    private final WalletTransfersProcessingService<AccountWallet> walletTransfersProcessingService;
 
     @Transactional
     @Override
@@ -35,7 +35,7 @@ public class DepositRequestProcessingServiceBean implements TransactionProcessin
         depositRequestRepository.findDepositRequestByIdAndStatus(id, "NEW")
                 .map(deposit -> {
                     deposit.setStatus("DONE");
-                    walletProcessingService.depositConfirmed(
+                    walletTransfersProcessingService.depositConfirmed(
                             deposit.getWallet(),
                             deposit.getAmount(),
                             deposit.getEmail()
