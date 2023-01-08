@@ -20,5 +20,6 @@ public class BuyAdvertServiceBean implements BuyAdvertService {
     public void create(BuyAdvert buyAdvert) {
         buyAdvertValidation.validate(buyAdvert);
         buyAdvertRepository.save(buyAdvert);
+
     }
 }
