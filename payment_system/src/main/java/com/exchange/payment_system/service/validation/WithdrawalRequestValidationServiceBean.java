@@ -2,11 +2,9 @@ package com.exchange.payment_system.service.validation;
 
 import com.exchange.payment_system.domain.wallets.AccountWallet;
 import com.exchange.payment_system.domain.transactions.WithdrawalRequest;
-import com.exchange.payment_system.repository.AccountWalletRepository;
-import com.exchange.payment_system.util.configuration.PaymentSystemConfig;
-import com.exchange.payment_system.util.exceptions.AccountWalletNotFoundException;
-import com.exchange.payment_system.util.exceptions.ClientIsNotVerifiedException;
-import com.exchange.payment_system.util.exceptions.NotEnoughFundsOnBalanceException;
+import com.exchange.payment_system.service.validation.validationServices.AmountValidationService;
+import com.exchange.payment_system.service.validation.validationServices.ClientValidationService;
+import com.exchange.payment_system.service.validation.validationServices.WalletValidationService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,35 +12,19 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class WithdrawalRequestValidationServiceBean implements TransactionValidationService<WithdrawalRequest>{
 
-    private final PaymentSystemConfig paymentSystemConfig;
+    private final ClientValidationService clientValidation;
 
-    private final AccountWalletRepository accountWalletRepository;
+    private final WalletValidationService<AccountWallet> accountWalletValidation;
+
+    private final AmountValidationService<AccountWallet> amountValidation;
 
     @Override
     public void validate(WithdrawalRequest transaction) {
-        validateVerification(transaction.getEmail());
-        AccountWallet source = validateSource(
+        clientValidation.validateVerification(transaction.getEmail());
+        AccountWallet source = accountWalletValidation.isAvailableWallet(
                 transaction.getEmail(),
                 transaction.getWallet()
         );
-        validateAmount(source, transaction.getAmount());
-    }
-
-    private AccountWallet validateSource(String email, String number) {
-        return accountWalletRepository.findAccountWalletByEmailAndNumber(email, number)
-                .orElseThrow(() -> new AccountWalletNotFoundException("Can't find account wallet with number: " + number));
-    }
-
-    private void validateVerification(String email) {
-        String uri = paymentSystemConfig.isVerifiedClient();
-        boolean verification = Boolean.TRUE.equals(
-                paymentSystemConfig.restTemplate().getForObject(uri, boolean.class, email)
-        );
-        if (!verification) throw new ClientIsNotVerifiedException("Client with email: " + email + "is not verified");
-    }
-
-    private void validateAmount(AccountWallet wallet, Double amount) {
-        if (wallet.getBalance().compareTo(amount) < 0)
-            throw new NotEnoughFundsOnBalanceException("Balance of the wallet: " + wallet.getNumber() + " is not enough");
+        amountValidation.isAmountEnough(source, transaction.getAmount());
     }
 }
