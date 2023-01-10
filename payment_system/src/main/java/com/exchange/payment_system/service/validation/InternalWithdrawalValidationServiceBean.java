@@ -4,10 +4,10 @@ import com.exchange.payment_system.domain.wallets.AccountWallet;
 import com.exchange.payment_system.domain.CryptoCurrency;
 import com.exchange.payment_system.domain.wallets.DigitalWallet;
 import com.exchange.payment_system.domain.transactions.InternalWithdrawal;
-import com.exchange.payment_system.repository.AccountWalletRepository;
-import com.exchange.payment_system.repository.DigitalWalletRepository;
-import com.exchange.payment_system.util.configuration.PaymentSystemConfig;
-import com.exchange.payment_system.util.exceptions.*;
+import com.exchange.payment_system.service.validation.validationServices.AmountValidationService;
+import com.exchange.payment_system.service.validation.validationServices.ClientValidationService;
+import com.exchange.payment_system.service.validation.validationServices.CurrenciesValidation;
+import com.exchange.payment_system.service.validation.validationServices.WalletValidationService;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,56 +16,31 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class InternalWithdrawalValidationServiceBean implements TransactionValidationService<InternalWithdrawal>{
 
-    private final PaymentSystemConfig paymentSystemConfig;
+    private final ClientValidationService clientValidation;
 
-    private final AccountWalletRepository accountWalletRepository;
+    private final CurrenciesValidation<CryptoCurrency> currenciesValidation;
 
-    private final DigitalWalletRepository digitalWalletRepository;
+    private final WalletValidationService<DigitalWallet> digitalWalletValidation;
+
+    private final WalletValidationService<AccountWallet> accountWalletValidation;
+
+    private final AmountValidationService<DigitalWallet> amountValidation;
 
     @Transactional
     @Override
     public void validate(InternalWithdrawal transaction) {
-        validateVerification(transaction.getEmail());
+        clientValidation.validateVerification(transaction.getEmail());
 
-        AccountWallet destination = validateDestination(
+        AccountWallet destination = accountWalletValidation.isAvailableWallet(
                 transaction.getEmail(),
                 transaction.getTo_account_wallet()
         );
-        DigitalWallet source = validateSource(
+        DigitalWallet source = digitalWalletValidation.isAvailableWallet(
                 transaction.getEmail(),
                 transaction.getFrom_digital_wallet()
         );
 
-        validateCurrencies(destination.getCryptoCurrency(), source.getCryptoCurrency());
-        validateAmount(source, transaction.getAmount());
+        currenciesValidation.validateCurrencies(destination.getCryptoCurrency(), source.getCryptoCurrency());
+        amountValidation.isAmountEnough(source, transaction.getAmount());
     }
-
-    private void validateCurrencies(CryptoCurrency c, CryptoCurrency c1) {
-        if (!c.equals(c1))
-            throw new CurrenciesAreNotEqualsException("Cryptocurrency: " + c.getName() + " cannot be transferred into cryptocurrency: " + c1.getName());
-    }
-
-    private DigitalWallet validateSource(String email, String number) {
-        return digitalWalletRepository.findDigitalWalletByEmailAndNumber(email, number)
-                .orElseThrow(() -> new DigitalWalletNotFoundException("Can't find digital wallet with email: " + email + " and number: " + number));
-    }
-
-    private AccountWallet validateDestination(String email, String number) {
-        return accountWalletRepository.findAccountWalletByEmailAndNumber(email, number)
-                .orElseThrow(() -> new AccountWalletNotFoundException("Can't find account wallet with email: " + email + " and number: " + number));
-    }
-
-    private void validateAmount(DigitalWallet source, Double amount) {
-        if (source.getBalance_available().compareTo(amount) < 0)
-            throw new NotEnoughFundsOnBalanceException("Balance of the wallet: " + source.getNumber() + "is not enough");
-    }
-
-    private void validateVerification(String email) {
-        String uri = paymentSystemConfig.isVerifiedClient();
-        boolean verification = Boolean.TRUE.equals(
-                paymentSystemConfig.restTemplate().getForObject(uri, boolean.class, email)
-        );
-        if (!verification) throw new ClientIsNotVerifiedException("Client with email: " + email + "is not verified");
-    }
-
 }

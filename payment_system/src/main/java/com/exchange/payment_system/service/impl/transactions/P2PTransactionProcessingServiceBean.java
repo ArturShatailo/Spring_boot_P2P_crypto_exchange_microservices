@@ -4,6 +4,7 @@ import com.exchange.payment_system.domain.transactions.P2PTransaction;
 import com.exchange.payment_system.repository.P2PTransactionRepository;
 import com.exchange.payment_system.service.TransactionProcessingService;
 import com.exchange.payment_system.service.WalletP2PProcessingService;
+import com.exchange.payment_system.service.validation.TransactionValidationService;
 import com.exchange.payment_system.util.exceptions.P2PTransactionNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -17,10 +18,12 @@ public class P2PTransactionProcessingServiceBean implements TransactionProcessin
 
     private final WalletP2PProcessingService digitalWalletProcessing;
 
+    private final TransactionValidationService<P2PTransaction> validationService;
+
     @Transactional
     @Override
     public P2PTransaction create(P2PTransaction transaction) {
-        //validation
+        validationService.validate(transaction);
         return p2pTransactionRepository.save(transaction);
     }
 

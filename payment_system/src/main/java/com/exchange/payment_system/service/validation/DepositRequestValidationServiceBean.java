@@ -1,8 +1,8 @@
 package com.exchange.payment_system.service.validation;
 
 import com.exchange.payment_system.domain.transactions.DepositRequest;
-import com.exchange.payment_system.repository.AccountWalletRepository;
-import com.exchange.payment_system.util.exceptions.AccountWalletNotFoundException;
+import com.exchange.payment_system.domain.wallets.AccountWallet;
+import com.exchange.payment_system.service.validation.validationServices.WalletValidationService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,15 +10,10 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class DepositRequestValidationServiceBean implements TransactionValidationService<DepositRequest>{
 
-    private final AccountWalletRepository accountWalletRepository;
+    private final WalletValidationService<AccountWallet> accountWalletValidation;
 
     @Override
     public void validate(DepositRequest transaction) {
-        validateDestination(transaction.getEmail(), transaction.getWallet());
-    }
-
-    private void validateDestination(String email, String number) {
-        accountWalletRepository.findAccountWalletByEmailAndNumber(email, number)
-                .orElseThrow(() -> new AccountWalletNotFoundException("Can't find account wallet with number: " + number));
+        accountWalletValidation.isAvailableWallet(transaction.getEmail(), transaction.getWallet());
     }
 }
