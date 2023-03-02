@@ -7,13 +7,21 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="market" />
+        <module name="payment_methods_management" />
+        <module name="payment_system" />
         <module name="clients_management" />
+        <module name="verification" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="clients_management" options="-parameters" />
+      <module name="market" options="-parameters" />
+      <module name="payment_methods_management" options="-parameters" />
+      <module name="payment_system" options="-parameters" />
+      <module name="verification" options="-parameters" />
     </option>
   </component>
 </project>

@@ -19,14 +19,14 @@ public class ClientCheckController implements ClientCheck {
     @Override
     @GetMapping(value = "/v", params = {"email"})
     @ResponseStatus(HttpStatus.FOUND)
-    public boolean is_verified(String email) {
+    public boolean is_verified(@RequestParam String email) {
         return clientInfoService.is_verified(email);
     }
 
     @Override
     @GetMapping(value = "/b", params = {"email"})
     @ResponseStatus(HttpStatus.FOUND)
-    public boolean is_blocked(String email) {
+    public boolean is_blocked(@RequestParam String email) {
         return clientInfoService.is_blocked(email);
     }
 

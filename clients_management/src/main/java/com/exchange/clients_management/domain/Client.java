@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.util.Date;
 
 @Data
@@ -27,6 +26,9 @@ public class Client {
     private String nickname;
 
     private String phone_number;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private Address address;
 
     private String email;
 
